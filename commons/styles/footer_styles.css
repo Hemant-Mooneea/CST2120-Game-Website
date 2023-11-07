@@ -1,0 +1,16 @@
+/* Styles for the footer container */
+.footer-container
+{
+    background-color: #373F47; /* Dark grayish-blue background color */
+    height: 100px;
+    width: 100%;
+}
+
+/* Styles for the footer text */
+.footer-text
+{
+    color: #FFF; /* White text color */
+    text-align: center; /* Center text horizontally */
+    font-family: Game Over;
+    font-size: 80px;
+}

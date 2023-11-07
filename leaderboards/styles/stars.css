@@ -1,0 +1,78 @@
+/* Apply overflow: hidden to all elements to hide content overflowing the container */
+* {
+    overflow: hidden;
+}
+
+/* Styles for the stars animation container */
+.stars-animation
+{   
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: url(../images/pink_space.jpg); /* Background image */
+    filter: brightness(75%); /* Adjust brightness of the background image */
+    background-size: cover; /* Scale the background image to cover the container */
+    display: flex;
+    justify-content: center; /* Horizontally center content */
+    align-items: center; /* Vertically center content */
+}
+
+/* Styles for individual star elements */
+.stars-animation .star
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Apply animations to stars for a shimmering effect */
+    animation: animate 8s ease-in-out infinite, backgroundmove 16s linear infinite;
+}
+
+/* Styles for the first star (star1) */
+.stars-animation .star.star1
+{   
+    animation-delay: 0s;
+    background: url(../images/star1.png); /* Use a specific image for this star */
+}
+
+/* Styles for the second star (star2) */
+.stars-animation .star.star2
+{   
+    animation-delay: -1s;
+    background: url(../images/star2.png); /* Use a specific image for this star */
+}
+
+/* Styles for the third star (star3) */
+.stars-animation .star.star3
+{   
+    animation-delay: -2s;
+    background: url(../images/star3.png); /* Use a specific image for this star */
+}
+
+/* Keyframes for the animation of star opacity */
+@keyframes animate
+{
+    0%, 20%, 40%, 60%, 80%, 100%
+    {
+        opacity: 0;
+    }
+    10%, 30%, 50%, 70%, 90%
+    {
+        opacity: 1;
+    }
+}
+
+/* Keyframes for the animation of background scaling */
+@keyframes backgroundmove
+{
+    0%
+    {
+        transform: scale(1);
+    }
+    100%
+    {
+        transform: scale(2);
+    }
+}

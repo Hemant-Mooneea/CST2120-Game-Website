@@ -1,0 +1,115 @@
+/* Defines the appearance of a login container with absolute positioning, centered horizontally, specific dimensions, and a dark grayish-blue background. */
+.login-container
+{
+    position: absolute;
+    margin-top: 175px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50px;
+    background: #373F47;
+}
+
+/* Changes the background color of the signup button container on hover to provide visual feedback. */
+.signup-button-container:hover
+{
+    background: #101010;
+}
+
+/* Defines the style of the login button container, including its background color and horizontal position. */
+.login-button-container
+{
+    right: 60px;
+    background: #6C91C2;
+}
+/* Styles for a container with class .background-container */
+.background-container 
+{
+    position: relative;
+    justify-content: center;
+    height: 1000px;
+    margin-top: -45px;
+    background-color: black;
+}
+
+/* Adds a top margin to the username input container to adjust its vertical position. */
+.username-input-container
+{
+    margin-top: 110px;
+}
+
+/* Defines the style of the header of the login container, specifying its dimensions, adding rounded top corners, and giving it a darker gray background. */
+.login-container-head
+{
+    width: 600px;
+    height: 100px;
+    border-radius: 50px 50px 0px 0px;
+    background: #252525;
+}
+
+/* Common styles for text elements with white color, a specific font, horizontal centering, and font size/line height adjustments. */
+.login-head-text, .login-text, .button-text
+{
+    position: relative;
+    top: 15px;
+    color: white;
+    font-family: Game Over;
+    text-align: center;
+    font-size: 110px;
+    line-height: 50px;
+}
+
+/* Sets the appearance of a button container with absolute positioning, dimensions, and rounded corners. */
+.signup-button-container, .login-button-container
+{
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    bottom: 60px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+/* Changes the background color of the login button container on hover to indicate interactivity. */
+.login-button-container:hover
+{
+    background: #415875;
+}
+
+/* Modifies the position and font size of the .button-text element to fine-tune its appearance. */
+.button-text
+{
+    top:-3px;
+    font-size: 80px;
+}
+
+/* Adds a top margin to the password input container to adjust its vertical position. */
+.password-input-container
+{
+    margin-top: 100px;
+}
+
+/* Defines the style of the signup button container, including its background color and horizontal position. */
+.signup-button-container
+{
+    left: 60px;
+    background: #212121;
+}
+
+/* Styles for username and password input containers */
+/* Defines the appearance of input containers with relative positioning, centering, specific dimensions, and a gray background. */
+.username-input-container, .password-input-container
+{   
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    height: 50px;
+    width: 500px;
+    background: #9B9B9B;
+}
+/* Shifts the .login-text element upwards to fine-tune its vertical alignment. */
+.login-text
+{
+    top: -75px;
+}

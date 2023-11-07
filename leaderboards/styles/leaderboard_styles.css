@@ -1,0 +1,143 @@
+/* Styles for a container with class .background-container */
+.background-container 
+{
+    position: relative;
+    justify-content: center; /* Center content horizontally */
+    height: 2100px;
+    background-color: black; /* Black background color */
+}
+
+/* Styles for a container with class .player-container */
+.player-container
+{
+    position: relative;
+    background-color: rgb(48, 48, 54); /* Grayish-blue background color */
+    justify-content: center; /* Center content horizontally */
+    top: 250px;
+    height: 240px;
+    width: 900px;
+    border-radius: 50px; /* Rounded corners */
+    left: 50%;
+    transform: translate(-50%, 0%); /* Center horizontally */
+}
+
+/* Styles for various text elements */
+.top-ten-text, .best-score-text, .score-number-text, .achieved-on-text, .date-text
+{   
+    position: relative;
+    text-align: center; /* Center text horizontally */
+    font-family: Game Over;
+    font-size: 100px;
+    top: -25px;
+    color: white; /* White text color */
+}
+
+/* Styles for text elements with letter-spacing */
+.best-score-text, .score-number-text, .date-text, .achieved-on-text
+{
+    letter-spacing: 10px;   
+}
+
+/* Additional style for .best-score-text */
+.best-score-text
+{      
+    font-size: 80px;
+    top: -50px;
+}
+
+/* Additional style for .score-number-text */
+.score-number-text
+{
+    top: 5px;
+    font-size: 130px;
+}
+
+/* Additional style for .date-text */
+.date-text
+{   
+    top: -115px;
+    font-size: 75px;
+}
+
+/* Additional style for .achieved-on-text */
+.achieved-on-text
+{
+    top: -75px;  
+    font-size: 50px;
+}
+
+/* Styles for containers with class .top-ten-container and .your-standing-container */
+.top-ten-container, .your-standing-container    
+{
+    position: relative;
+    width: 500px;
+    height: 75px;
+    margin-top: 350px;
+    background-color: #373F47; /* Dark gray background color */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Center text horizontally */
+    left: 50%;
+    transform: translate(-50%, 0%); /* Center horizontally */
+}
+
+/* Additional style for .your-standing-container */
+.your-standing-container
+{
+    margin-top: 0;
+    top: -160px;
+}
+
+/* Animation for .score-number-text */
+.score-number-text {
+    animation: MoveUpDown 1s linear infinite;
+    left: 0;
+    bottom: 0;
+}
+
+/* Keyframes for MoveUpDown animation */
+@keyframes MoveUpDown {
+    0%, 100% {
+        transform: translateY(1px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Styles for a table with class .styled-table */
+.styled-table {
+    position: relative;
+    text-align: center; /* Center table content horizontally */
+    top: 100px;
+    border-collapse: collapse;
+    font-size: 70px;
+    font-weight: bold;
+    font-family: Game Over;
+    width: 1300px;
+    left: 50%;
+    transform: translate(-50%, 0%); /* Center horizontally */
+}
+
+/* Styles for table header */
+.styled-table thead tr {
+    background-color: #575799; /* Dark blue background for table header */
+    color: #ffffff; /* White text color */
+    font-size: 85px;
+    text-align: center;
+}
+
+/* Styles for table header cells and table data cells */
+.styled-table th, .styled-table td {
+    padding: 12px 15px;
+    width: 500px; /* Set a specific width for cells */
+}
+
+/* Alternate row styles for the table */
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #bdbdbd; /* Light gray background for even rows */
+}
+
+.styled-table tbody tr:nth-of-type(odd) {
+    background-color: #2f304e84; /* Slightly transparent dark blue background for odd rows */
+    color: #cdcdcd; /* Light gray text color for odd rows */
+}

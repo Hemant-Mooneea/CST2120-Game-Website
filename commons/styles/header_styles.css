@@ -1,0 +1,102 @@
+/* Styles for the header title container */
+.header-title-container 
+{
+    background-color: #373F47; /* Dark grayish-blue background color */
+    width: 100%;
+    height: 100px;
+}
+
+/* Styles for the game name text */
+.game-name-text 
+{
+    position: absolute;
+    left: 50px;
+    top: -20px;
+    color: white; /* White text color */
+    font-family: "Game Over";
+    font-size: 100px;
+}
+
+/* Styles for the login button */
+.login-button 
+{
+    position: absolute;
+    right: 50px;
+    top: 25px;
+    width: 217px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #6C91C2; /* Blue background color */
+}
+
+/* Styles for the login button text */
+.login-text 
+{
+    position: relative;
+    color: #FFF; /* White text color */
+    font-family: "Inter";
+    font-size: 20px;
+    font-style: normal;
+    text-align: center;
+    margin-top: 12px;
+    height: 48px;
+}
+
+/* Styles for the header navigation bar */
+.header-nav-bar 
+{
+    background: #AAABBC; /* Grayish background color */
+    height: 100px;
+}
+
+/* Styles for the home, game, and leaderboard squares */
+.home-square,
+.game-square,
+.leaderboard-square 
+{
+    position: absolute;
+    width: 150vh;
+    height: 100px;
+    background: #999382; /* Grayish background color */
+}
+
+/* Styles for the home square */
+.home-square 
+{
+    left: 60px;
+}
+
+/* Styles for the game square */
+.game-square 
+{
+    /* Center the square on the middle of the navigation bar */
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+/* Styles for the leaderboard square */
+.leaderboard-square 
+{
+    right: 60px;
+}
+
+/* Hover styles for the home, game, and leaderboard squares */
+.home-square:hover,
+.game-square:hover,
+.leaderboard-square:hover 
+{
+    background: wheat; /* Light yellow background on hover */
+}
+
+/* Hover styles for the login button */
+.login-button:hover 
+{
+    background: white; /* White background on hover */
+}
+
+/* Hover styles for the login button text */
+.login-button:hover .login-text 
+{
+    color: black; /* Black text color on button hover */
+}

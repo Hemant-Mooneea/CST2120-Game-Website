@@ -1,0 +1,73 @@
+/* Styles for the game description container */
+.game-desc-container
+{
+    position: absolute;
+    background-color: #373F47; /* Dark grayish-blue background color */
+    height: 180px;
+    width: 100%;
+    z-index: 1; /* Set the stacking order for elements */
+}
+
+/* Styles for the game description text */
+.game-desc-text
+{
+    position: absolute;
+    top: 15px;
+    color: white; /* White text color */
+    font-family: Game Over;
+    text-align: center;
+    font-size: 75px;
+    line-height: 50px;
+}
+
+/* Styles for the video container */
+.video-container
+{
+    position: absolute;
+    margin-top: 85px;
+    z-index: 1; /* Set the stacking order for elements */
+    width: 100%;
+    text-align: center;
+    top: 180px;
+}
+
+/* Styles for the play button container */
+.play-container
+{   
+    position: absolute;
+    z-index: 2; /* Set the stacking order for elements */
+    background-color: #2d78da; /* Dark blue background color */
+    width: 364px;
+    height: 99px;
+    top: 720px;
+    left: 50%;
+    transform: translate(-50%, 0%); /* Center horizontally */
+    border-radius: 30px;
+}
+
+/* Styles for the play button text */
+.play-text
+{
+    position: relative;
+    color: #FFF; /* White text color */
+    font-family: inter;
+    font-size: 50px;
+    font-style: normal;
+    text-align: center;
+    top: 20px;
+}
+
+/* Styles for a background container */
+.background-container 
+{
+    position: relative;
+    justify-content: center; /* Center content horizontally */
+    height: 900px;
+    background-color: black; /* Black background color */
+}
+
+/* Hover styles for the play button container */
+.play-container:hover
+{
+    background-color: #21569b; /* Dark blue background color on hover */
+}

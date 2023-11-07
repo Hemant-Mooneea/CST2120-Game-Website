@@ -1,0 +1,36 @@
+/* Styles for an element with the class .css-selector */
+.css-selector {
+    /* Set the width and height of the element to 100% of its container */
+    width: 100%;
+    height: 100%;
+    /* Add a top margin of 45 pixels */
+    margin-top: 45px;
+    /* Create a linear gradient background with a subtle color transition */
+    background: linear-gradient(1deg, #000000, #0d0d0d, #1b1b1b);
+    background-size: 600% 600%;
+
+    /* Apply an animation named AnimationName for 30 seconds, with ease timing, and infinite repetition */
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+}
+
+/* Define keyframes for the AnimationName animation */
+@-webkit-keyframes AnimationName {
+    /* At 0% keyframe, set the background position to create the animation effect */
+    0%{background-position:51% 0%}
+    /* At 50% keyframe, change the background position to create the animation effect */
+    50%{background-position:50% 100%}
+    /* At 100% keyframe, reset the background position to create a looping effect */
+    100%{background-position:51% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}

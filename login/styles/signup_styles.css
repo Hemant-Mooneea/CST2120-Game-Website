@@ -1,0 +1,44 @@
+/* Defines the appearance of a signup container with absolute positioning, centered horizontally, specific dimensions, and a dark grayish-blue background. */
+.login-container
+{
+    height: 860px;
+}
+
+/* Styles for a container with class .background-container */
+.background-container 
+{
+    height: 1200px;
+}
+
+/* Styles for email and name input containers */
+.email-input-container, .name-input-container
+{   
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    height: 50px;
+    width: 500px;
+    background: #9B9B9B;
+}
+
+/* Adds a top margin to the name input container to adjust its vertical position. */
+.name-input-container
+{
+    margin-top: 100px;
+}
+
+/* Adds a top margin to the email input container to adjust its vertical position. */
+.email-input-container
+{
+    margin-top: 100px;
+}
+
+/* Defines the style of the signup button container, including its bottom positioning, background color, width, and horizontal centering. */
+.signup-button-container
+{
+    bottom: 50px;
+    background: #212121;
+    width: 400px;
+    left: 50%;
+    transform: translate(-50%, 0%); 
+}
