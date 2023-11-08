@@ -20,6 +20,11 @@ iframe
 
     border: 0;
 }
+input
+{
+    border: 0;
+    outline: none;
+}
 /*creates a container for the header*/
 .header-container
 {

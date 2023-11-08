@@ -1,7 +1,16 @@
+/*Defines the appearance of the text inside input fields*/
+input
+{
+    font-family:Game Over;
+    font-size: 100px;
+    text-align: center;
+    color:rgb(255, 255, 255);
+}
 /* Defines the appearance of a login container with absolute positioning, centered horizontally, specific dimensions, and a dark grayish-blue background. */
 .login-container
 {
     position: absolute;
+    text-align: center;
     margin-top: 175px;
     left: 50%;
     transform: translate(-50%, 0%);
@@ -102,14 +111,19 @@
 .username-input-container, .password-input-container
 {   
     position: relative;
-    left: 50%;
-    transform: translate(-50%, 0%);
     height: 50px;
     width: 500px;
     background: #9B9B9B;
+    top:-30px;
 }
-/* Shifts the .login-text element upwards to fine-tune its vertical alignment. */
+/*Fine tuning position of the text*/
 .login-text
-{
-    top: -75px;
+{   
+    position: relative;
+    top:20px;
 }
+.password-input-container
+{
+    font-size: 20px;
+}
+
