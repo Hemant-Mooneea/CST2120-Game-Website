@@ -20,9 +20,11 @@ iframe
 
     border: 0;
 }
-input
+input, button
 {
     border: 0;
+    justify-content: center;
+    text-align: center;
     outline: none;
 }
 /*creates a container for the header*/

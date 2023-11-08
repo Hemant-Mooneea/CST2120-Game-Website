@@ -1,9 +1,8 @@
 /*Defines the appearance of the text inside input fields*/
 input
 {
-    font-family:Game Over;
-    font-size: 100px;
-    text-align: center;
+    font-family:inter;
+    font-size: 30px;
     color:rgb(255, 255, 255);
 }
 /* Defines the appearance of a login container with absolute positioning, centered horizontally, specific dimensions, and a dark grayish-blue background. */
