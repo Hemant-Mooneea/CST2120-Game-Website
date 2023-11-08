@@ -7,13 +7,14 @@
         <link rel="stylesheet" href="styles//login_gradient.css"> <!-- Links to another stylesheet for login-specific gradient styles -->
         <link rel="stylesheet" href="styles//signup_styles.css"> <!-- Links to another stylesheet for signup-specific gradient styles -->
         <title>Galaxy Fighters</title> <!-- Sets the title of the HTML page to "Galaxy Fighters" -->
+        <script src="scripts/signup.js"></script>
         <meta charset="utf-8"> <!--Defines the Character Encoding Used-->
     </head>
     <body>
         <iframe src="../commons/header.html" class="header-container"></iframe> <!-- Embeds the header HTML document using an iframe -->
         <main>
             <div class="background-container">
-                <form name="signup" onsubmit="return formValidation();">
+                <form name="signup">
                     <div class="login-container">
                         <div class="login-container-head">
                             <p class="login-head-text">
@@ -32,12 +33,13 @@
 
                         <label for="password" class="login-text">Password</label>
                         <input type="password" name="password" class="password-input-container" id="password" required> 
-           
-                        <div class="signup-button-container">   
+                        
+                        <button type="submit" class ="signup-button-container">
                             <p class="button-text">
                                 Sign Up
                             </p>
-                        </div>
+                        </button>
+             
                 </form>
                 </div>
                 <div class="css-selector"></div> <!--Allows for the gradient background effect-->
