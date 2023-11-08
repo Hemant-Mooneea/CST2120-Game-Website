@@ -1,5 +1,4 @@
-function signupValidation()
-{   
+function signupValidation() {
     // Get the input data from the fields
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
@@ -8,7 +7,8 @@ function signupValidation()
 
     if (name === "" || email === "" || username === "" || password === "") {
         alert("Please fill in all fields");
-        return false; // Prevent the form submission
+        return false; // Do not proceed with form submission
     }
-    return true;
+
+    window.location.href = "../homepage/homepage.html";
 }
