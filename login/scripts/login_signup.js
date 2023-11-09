@@ -1,4 +1,5 @@
-function signupValidation() {
+function signupValidation() 
+{
     // Get the input data from the fields
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
@@ -11,4 +12,8 @@ function signupValidation() {
     }
 
     window.location.href = "../homepage/homepage.html";
+}
+function nameValidation()
+{
+
 }

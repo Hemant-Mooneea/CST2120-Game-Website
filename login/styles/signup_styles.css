@@ -11,7 +11,7 @@
 }
 
 /* Styles for email and name input containers */
-.email-input-container, .name-input-container
+.gender-input-container, .date-input-container
 {   
     position: relative;
     height: 50px;
@@ -20,13 +20,13 @@
 }
 
 /* Adds a top margin to the name input container to adjust its vertical position. */
-.name-input-container
+.date-input-container
 {
     margin-top: 50px;
 }
 
 /* Adds a top margin to the email input container to adjust its vertical position. */
-.email-input-container
+.gender-input-container
 {
     margin-top: 50px;
 }
@@ -40,7 +40,7 @@
     left: 50%;
     transform: translate(-50%, 0%); 
 }
-.username-input-container, .password-input-container
+.userdate-input-container, .password-input-container
 {   
     top:0px;
     margin-top: 50px;
