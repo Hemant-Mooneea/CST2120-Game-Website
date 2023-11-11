@@ -21,7 +21,8 @@
 
 /* Adds a top margin to the name input container to adjust its vertical position. */
 .date-input-container
-{
+{   
+    text-indent: 30px;
     margin-top: 50px;
 }
 
