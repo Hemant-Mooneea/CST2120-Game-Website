@@ -57,7 +57,7 @@ input
 }
 
 /* Common styles for text elements with white color, a specific font, horizontal centering, and font size/line height adjustments. */
-.login-head-text, .login-text, .button-text
+.login-head-text, .login-text, .button-text, .error-text, .gender-error-text
 {
     position: relative;
     top: 15px;
@@ -124,4 +124,14 @@ input
 {
     font-size: 20px;
 }
-
+.error-text, .gender-error-text
+{   
+    height: 20px;
+    color: rgb(248, 0, 0);
+    top:-15px;
+    font-size: 70px;
+}
+.gender-error-text
+{
+    top:2px;
+}

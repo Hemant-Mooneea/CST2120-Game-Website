@@ -14,12 +14,13 @@ function signupValidation()
     const password = document.getElementById("password").value;
     const gender = document.querySelector('input[name="gender"]:checked').value;
     const date = document.getElementById("date").value;
-    usernameValidation(username);
-    passwordValidation(password);
-    genderValidation(gender);
-    dateValidation(date);
 
-    return false;
+    document.getElementById("username_error").innerHTML= usernameValidation(username);
+    document.getElementById("password_error").innerHTML= passwordValidation(password);
+    document.getElementById("date_error").innerHTML= dateValidation(date);
+    document.getElementById("gender_error").innerHTML= genderValidation(gender);
+    
+    return false;   
     //window.location.href = "../homepage/homepage.html";
 }
 
@@ -31,27 +32,27 @@ This Function takes in the username and checks whether the username:
 */
 function usernameValidation(username)
 {   
-    
     //Don't forget to check json files if name already exists
     //Checks if username is empty
     if (username === "")
     {
-        alert("Username cannot be empty");
-        return false;
+        return("Username cannot be empty");
     }
     //Checks if username has special characters
     if (special_regex.test(username))
     {
-        alert("Username cannot contains special characters");
-        return false;
+        return("Username cannot contain special characters");
     }
     //Checks if username is longer than 20 characters
     if (username.length > 20)
     {
-        alert("Username cannot be longer than 20 characters");
-        return false;
+        return("Username cannot be longer than 20 characters");
     }
-    
+    if (username==="ASSAS")
+    {
+        return("Username already exists");
+    }
+    return("")
 }
 /* 
 This Function takes in the password and checks whether the password :
@@ -63,35 +64,29 @@ function passwordValidation(password)
 {
     if (password === "")
     {
-        alert("Password cannot be empty");
-        return false;
+        return("Password cannot be empty");
     }
     if (password.length < 8)
     {
-        alert("Password has to contain at least 8 characters");
-        return false;
+        return("Password has to be at least 8 characters");
     }
     if (!upper_regex.test(password))
     {
-        alert("Password needs to have 1 uppercase");
-        return false;
+        return("Password needs to have 1 uppercase");
     }
-    
     if (!lower_regex.test(password))
     {
-        alert("Password needs to have 1 lowercase");
-        return false;
+        return("Password needs to have 1 lowercase");
     }
     if (!number_regex.test(password))
     {
-        alert("Password needs to have 1 number");
-        return false;
+        return("Password needs to have 1 number");
     }
     if (!special_regex.test(password))
     {
-        alert("Password needs to have 1 special character");
-        return false;
+        return("Password needs to have 1 special character");
     }
+    return("")
 }
 
 /* 
@@ -103,15 +98,17 @@ function dateValidation(date)
 {   
     if (date === "")
     {
-        alert("Date cannot be empty");
-        return false;
+        return("Date cannot be empty");
+         
     }   
+    
     let age = calculateAge(date);
+
     if (age < 13)
     {
-        alert("User is not old enough");
-        return false;
+        return("User should be at least 13");
     }
+    return("");
 }   
 
 // This function calculates age based on a given date
@@ -145,6 +142,7 @@ function calculateAge(date)
 function genderValidation(gender) {
     if (gender==="") 
     {
-      alert("Please select a gender");
+      return("Please select a gender");
     }
+    return("");
   }

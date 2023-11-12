@@ -24,26 +24,28 @@
 
                         <label for="username" class="login-text">Username</label>
                         <input type="text" name="username" class="username-input-container" id="username">
+                        <p id="username_error" class="error-text"></p>
 
                         <label for="password" class="login-text">Password</label>
                         <input type="password" name="password" class="password-input-container" id="password"> 
-                        
+                        <p id="password_error" class="error-text"></p>
+
                         <label for="date" class="login-text">Date Of Birth</label>
                         <input type="date" name="date" class="date-input-container" id="date">
-                        
+                        <p id="date_error" class="error-text"></p>
+
                         <label class="login-text">Gender</label>
                         <ul class="gender-list">
                           <li>
                             <label class="male-text">Male</label>
-                            <input type="radio" name="gender" class="male-radio-container" value="male">
+                            <input type="radio" name="gender" class="male-radio-container" value="male" checked>
                           </li>
                           <li>
                             <label class="female-text">Female</label>
                             <input type="radio" name="gender" class="female-radio-container" value="female">
                           </li>
                         </ul>
-                        
-
+                        <p id="gender_error" class="gender-error-text"></p>
                         <button type="button" class="signup-button-container" onclick="return signupValidation()">
                             <p class="button-text">
                                 Sign Up
