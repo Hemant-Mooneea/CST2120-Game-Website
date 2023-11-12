@@ -11,7 +11,7 @@
 }
 
 /* Styles for email and name input containers */
-.gender-input-container, .date-input-container
+.date-input-container
 {   
     position: relative;
     height: 50px;
@@ -26,11 +26,6 @@
     margin-top: 50px;
 }
 
-/* Adds a top margin to the email input container to adjust its vertical position. */
-.gender-input-container
-{
-    margin-top: 50px;
-}
 
 /* Defines the style of the signup button container, including its bottom positioning, background color, width, and horizontal centering. */
 .signup-button-container
@@ -45,4 +40,42 @@
 {   
     top:0px;
     margin-top: 50px;
+}
+
+.male-radio-container, .female-radio-container
+{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    bottom: 180px;
+}
+.male-radio-container
+{
+    left: 125px;
+}
+.female-radio-container
+{
+    right: 125px;
+}
+.male-text, .female-text
+{
+    position: absolute;
+    color: white;
+    font-family: Game Over;
+    font-size: 80px;
+    bottom: 110px;
+    
+}
+.male-text
+{
+    left: 110px;
+}
+.female-text
+{
+    right: 90px;
+}
+.gender-list 
+{
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
 }

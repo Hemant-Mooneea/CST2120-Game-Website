@@ -12,13 +12,14 @@ function signupValidation()
     // Get the input data from the fields
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    const gender = document.getElementById("gender").value;
+    const gender = document.querySelector('input[name="gender"]:checked').value;
     const date = document.getElementById("date").value;
     usernameValidation(username);
-    passwordValidation(password)
+    passwordValidation(password);
+    genderValidation(gender);
     dateValidation(date);
 
-    
+    return false;
     //window.location.href = "../homepage/homepage.html";
 }
 
@@ -140,4 +141,13 @@ function calculateAge(date)
     }
   
     return age;
+}
+
+//This function checks wheter the user chose a gender
+function genderValidation(gender) {
+    // Check if a gender is selected
+    if (gender==="") {
+      alert("Please select a gender");
+      // You might want to add more specific handling for your use case
+    }
   }

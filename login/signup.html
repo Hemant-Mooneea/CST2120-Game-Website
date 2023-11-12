@@ -31,9 +31,19 @@
                         <label for="date" class="login-text">Date Of Birth</label>
                         <input type="date" name="date" class="date-input-container" id="date">
                         
-                        <label for="gender" class="login-text">Gender</label>
-                        <input type="text" name="gender" class="gender-input-container" id="gender">
+                        <label class="login-text">Gender</label>
+                        <ul class="gender-list">
+                          <li>
+                            <label class="male-text">Male</label>
+                            <input type="radio" name="gender" class="male-radio-container" value="male">
+                          </li>
+                          <li>
+                            <label class="female-text">Female</label>
+                            <input type="radio" name="gender" class="female-radio-container" value="female">
+                          </li>
+                        </ul>
                         
+
                         <button type="button" class="signup-button-container" onclick="return signupValidation()">
                             <p class="button-text">
                                 Sign Up
