@@ -22,10 +22,10 @@ function signupValidation()
 }
 
 /* 
-This Function takes in the username and checks whether:
-    the username already exists
-    the username contains special characters
-    the user did not input a username
+This Function takes in the username and checks whether the username:
+    is blank
+    already exists
+    contains special characters
 */
 function usernameValidation(username)
 {   
@@ -51,6 +51,12 @@ function usernameValidation(username)
     }
     
 }
+/* 
+This Function takes in the password and checks whether the password :
+    is blank
+    is at least 8 in length
+    contains one uppercase, lowercase, number and special character
+*/
 function passwordValidation(password)
 {
     if (password === "")
@@ -81,7 +87,7 @@ function passwordValidation(password)
     }
     if (!special_regex.test(password))
     {
-        alert("Password needs to have 1 sepcial character");
+        alert("Password needs to have 1 special character");
         return false;
     }
     
