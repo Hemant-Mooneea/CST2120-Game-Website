@@ -15,7 +15,8 @@ function signupValidation()
     const gender = document.getElementById("gender").value;
     const date = document.getElementById("date").value;
     usernameValidation(username);
-    passwordValidation(password);
+    passwordValidation(password)
+    dateValidation(date);
 
     
     //window.location.href = "../homepage/homepage.html";
@@ -90,7 +91,53 @@ function passwordValidation(password)
         alert("Password needs to have 1 special character");
         return false;
     }
-    
-    
 }
 
+/* 
+This Function takes in the Date of Birth and checks whether:
+    it is blank
+    the user is at least 13 years old
+*/
+function dateValidation(date)
+{   
+    if (date === "")
+    {
+        alert("Date cannot be empty");
+        return false;
+    }   
+    let age = calculateAge(date);
+    if (age < 13)
+    {
+        alert("User is not old enough");
+        return false;
+    }
+
+
+}   
+
+// This function calculates age based on a given date
+function calculateAge(date) 
+{
+    // Get the current date
+    const today = new Date();
+  
+    // Convert the input date string into a Date object
+    const birthDate = new Date(date);
+  
+    // Calculate the difference in years between the current date and the birthdate
+    let age = today.getFullYear() - birthDate.getFullYear();
+    
+    // This portion of the code checks whether a person has NOT had their birthday yet this year
+    
+    // Check if the birth month is in the future or the same as the current month
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+  
+    // If the birth month is in the future or the same month but the birth day is in the future,
+    // decrement the calculated age to get the accurate age
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate()))
+    {
+      age--;
+    }
+  
+    return age;
+  }
