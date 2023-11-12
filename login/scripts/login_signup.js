@@ -4,6 +4,9 @@ It initialises the constants by first obtaining it from the the form
 It then calls each of the validation functions to check for errors
 */
 const special_regex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/;
+const upper_regex = /[A-Z]/;
+const lower_regex = /[a-z]/;
+const number_regex = /[0-9]/;
 function signupValidation() 
 {
     // Get the input data from the fields
@@ -12,14 +15,10 @@ function signupValidation()
     const gender = document.getElementById("gender").value;
     const date = document.getElementById("date").value;
     usernameValidation(username);
-    if (date === "" || gender === "" || password === "") 
-    {
-        alert("Please fill in all fields");
-        return false; // Do not proceed with form submission
-    }
+    passwordValidation(password);
 
-    // Perform other validation or actions if needed
-    window.location.href = "../homepage/homepage.html";
+    
+    //window.location.href = "../homepage/homepage.html";
 }
 
 /* 
@@ -37,7 +36,6 @@ function usernameValidation(username)
     {
         alert("Username cannot be empty");
         return false;
-    
     }
     //Checks if username has special characters
     if (special_regex.test(username))
@@ -55,5 +53,38 @@ function usernameValidation(username)
 }
 function passwordValidation(password)
 {
-
+    if (password === "")
+    {
+        alert("Password cannot be empty");
+        return false;
+    }
+    if (password.length < 8)
+    {
+        alert("Password has to contain at least 8 characters");
+        return false;
+    }
+    if (!upper_regex.test(password))
+    {
+        alert("Password needs to have 1 uppercase");
+        return false;
+    }
+    
+    if (!lower_regex.test(password))
+    {
+        alert("Password needs to have 1 lowercase");
+        return false;
+    }
+    if (!number_regex.test(password))
+    {
+        alert("Password needs to have 1 number");
+        return false;
+    }
+    if (!special_regex.test(password))
+    {
+        alert("Password needs to have 1 sepcial character");
+        return false;
+    }
+    
+    
 }
+
