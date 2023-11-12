@@ -1,13 +1,13 @@
 /* Defines the appearance of a signup container with absolute positioning, centered horizontally, specific dimensions, and a dark grayish-blue background. */
 .login-container
 {
-    height: 860px;
+    height: 1000px;
 }
 
 /* Styles for a container with class .background-container */
 .background-container 
 {
-    height: 1200px;
+    height: 1500px;
 }
 
 /* Styles for email and name input containers */
@@ -36,10 +36,16 @@
     left: 50%;
     transform: translate(-50%, 0%); 
 }
-.userdate-input-container, .password-input-container
-{   
-    top:0px;
+.username-input-container
+{
     margin-top: 50px;
+    margin-bottom: 20px;
+}
+.date-input-container, .password-input-container
+{   
+    top:10px;
+    margin-top: 50px;
+    margin-bottom: 30px;
 }
 
 .male-radio-container, .female-radio-container
@@ -47,7 +53,7 @@
     position: absolute;
     width: 25px;
     height: 25px;
-    bottom: 180px;
+    bottom: 250px;
 }
 .male-radio-container
 {
@@ -63,7 +69,7 @@
     color: white;
     font-family: Game Over;
     font-size: 80px;
-    bottom: 110px;
+    bottom: 185px;
     
 }
 .male-text

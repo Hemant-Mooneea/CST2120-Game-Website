@@ -112,8 +112,6 @@ function dateValidation(date)
         alert("User is not old enough");
         return false;
     }
-
-
 }   
 
 // This function calculates age based on a given date
@@ -143,11 +141,10 @@ function calculateAge(date)
     return age;
 }
 
-//This function checks wheter the user chose a gender
+//This function checks if the radio list has unselected options
 function genderValidation(gender) {
-    // Check if a gender is selected
-    if (gender==="") {
+    if (gender==="") 
+    {
       alert("Please select a gender");
-      // You might want to add more specific handling for your use case
     }
   }
