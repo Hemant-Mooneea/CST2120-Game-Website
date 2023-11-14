@@ -15,13 +15,41 @@ function signupValidation()
     const gender = document.querySelector('input[name="gender"]:checked').value;
     const date = document.getElementById("date").value;
 
-    document.getElementById("username_error").innerHTML= usernameValidation(username);
-    document.getElementById("password_error").innerHTML= passwordValidation(password);
-    document.getElementById("date_error").innerHTML= dateValidation(date);
-    document.getElementById("gender_error").innerHTML= genderValidation(gender);
-    
-    return false;   
-    //window.location.href = "../homepage/homepage.html";
+    let form_validation = true;
+    let username_error_msg = usernameValidation(username);
+    let password_error_msg = passwordValidation(password);
+    let date_error_msg = dateValidation(gender);
+    let gender_error_msg = genderValidation(date);
+    /*
+    if(!(username_error_msg === "") || !(password_error_msg === "") ||!(date_error_msg === "") || !(gender_error_msg === ""))
+    {
+        document.getElementById("username_error").innerHTML= username_error_msg;
+        document.getElementById("password_error").innerHTML= password_error_msg;
+        document.getElementById("date_error").innerHTML= date_error_msg;
+        document.getElementById("gender_error").innerHTML= gender_error_msg;
+        return false;  
+    } 
+    */
+
+    if (!(username_error_msg === ""))
+    {
+        document.getElementById("username_error").innerHTML= username_error_msg;
+        form_validation = false;
+    }
+    if (!(password_error_msg === ""))
+    {
+        document.getElementById("password_error").innerHTML= password_error_msg;
+        form_validation = false;   
+    }
+    if (!(date_error_msg === null))
+    {
+        document.getElementById("date_Error").innerHTML= date_error_msg;
+        form_validation = false;   
+    }
+    console.log(date_error_msg);
+
+    return form_validation;
+    window.location.href = "../homepage/homepage.html";
 }
 
 /* 
@@ -52,7 +80,7 @@ function usernameValidation(username)
     {
         return("Username already exists");
     }
-    return("")
+    return(" ")
 }
 /* 
 This Function takes in the password and checks whether the password :
@@ -62,10 +90,6 @@ This Function takes in the password and checks whether the password :
 */
 function passwordValidation(password)
 {
-    if (password === "")
-    {
-        return("Password cannot be empty");
-    }
     if (password.length < 8)
     {
         return("Password has to be at least 8 characters");
@@ -86,7 +110,7 @@ function passwordValidation(password)
     {
         return("Password needs to have 1 special character");
     }
-    return("")
+    return(" ")
 }
 
 /* 
@@ -108,7 +132,7 @@ function dateValidation(date)
     {
         return("User should be at least 13");
     }
-    return("");
+    return(" ");
 }   
 
 // This function calculates age based on a given date
@@ -144,5 +168,5 @@ function genderValidation(gender) {
     {
       return("Please select a gender");
     }
-    return("");
+    return(" ");
   }
