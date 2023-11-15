@@ -1,12 +1,15 @@
+// initialising the regex used in the code
+const special_regex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/;
+const upper_regex = /[A-Z]/;
+const lower_regex = /[a-z]/;
+const number_regex = /[0-9]/;
+
 /* 
 This function is called when the user presses the signup button.
 It initialises the constants by first obtaining it from the the form
 It then calls each of the validation functions to check for errors
 */
-const special_regex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/;
-const upper_regex = /[A-Z]/;
-const lower_regex = /[a-z]/;
-const number_regex = /[0-9]/;
+
 function signupValidation() 
 {
     // Get the input data from the fields
@@ -15,40 +18,24 @@ function signupValidation()
     const gender = document.querySelector('input[name="gender"]:checked').value;
     const date = document.getElementById("date").value;
 
-    let form_validation = true;
     let username_error_msg = usernameValidation(username);
     let password_error_msg = passwordValidation(password);
-    let date_error_msg = dateValidation(gender);
-    let gender_error_msg = genderValidation(date);
-    /*
-    if(!(username_error_msg === "") || !(password_error_msg === "") ||!(date_error_msg === "") || !(gender_error_msg === ""))
-    {
-        document.getElementById("username_error").innerHTML= username_error_msg;
-        document.getElementById("password_error").innerHTML= password_error_msg;
-        document.getElementById("date_error").innerHTML= date_error_msg;
-        document.getElementById("gender_error").innerHTML= gender_error_msg;
-        return false;  
-    } 
-    */
+    let date_error_msg = dateValidation(date);
+    let gender_error_msg = genderValidation(gender);
 
-    if (!(username_error_msg === ""))
+    // displaying the error messages on the form
+    document.getElementById("username_error").innerHTML= username_error_msg;
+    document.getElementById("password_error").innerHTML= password_error_msg;
+    document.getElementById("date_error").innerHTML= date_error_msg;
+    document.getElementById("gender_error").innerHTML= gender_error_msg;
+    
+   
+    // if there are error messages, don't proceed with the form
+    if (!(username_error_msg === " ") || !(password_error_msg === " ") || !(date_error_msg === " ") || !(gender_error_msg === " "))
     {
-        document.getElementById("username_error").innerHTML= username_error_msg;
-        form_validation = false;
+       return false;
     }
-    if (!(password_error_msg === ""))
-    {
-        document.getElementById("password_error").innerHTML= password_error_msg;
-        form_validation = false;   
-    }
-    if (!(date_error_msg === null))
-    {
-        document.getElementById("date_Error").innerHTML= date_error_msg;
-        form_validation = false;   
-    }
-    console.log(date_error_msg);
 
-    return form_validation;
     window.location.href = "../homepage/homepage.html";
 }
 
@@ -80,7 +67,7 @@ function usernameValidation(username)
     {
         return("Username already exists");
     }
-    return(" ")
+    return(" ");
 }
 /* 
 This Function takes in the password and checks whether the password :
@@ -110,7 +97,7 @@ function passwordValidation(password)
     {
         return("Password needs to have 1 special character");
     }
-    return(" ")
+    return(" ");
 }
 
 /* 
@@ -123,7 +110,6 @@ function dateValidation(date)
     if (date === "")
     {
         return("Date cannot be empty");
-         
     }   
     
     let age = calculateAge(date);
@@ -163,10 +149,11 @@ function calculateAge(date)
 }
 
 //This function checks if the radio list has unselected options
-function genderValidation(gender) {
+function genderValidation(gender) 
+{
     if (gender==="") 
     {
       return("Please select a gender");
     }
     return(" ");
-  }
+}
