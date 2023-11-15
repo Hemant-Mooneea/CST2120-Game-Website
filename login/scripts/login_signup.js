@@ -1,5 +1,5 @@
 // initialising the regex used in the code
-const special_regex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/;
+const special_regex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\ ]/;
 const upper_regex = /[A-Z]/;
 const lower_regex = /[a-z]/;
 const number_regex = /[0-9]/;
@@ -16,11 +16,11 @@ function signupValidation()
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const gender = document.querySelector('input[name="gender"]:checked').value;
-    const date = document.getElementById("date").value;
-
+    const dob = document.getElementById("date").value;
+    
     let username_error_msg = usernameValidation(username);
     let password_error_msg = passwordValidation(password);
-    let date_error_msg = dateValidation(date);
+    let date_error_msg = dateValidation(dob);
     let gender_error_msg = genderValidation(gender);
 
     // displaying the error messages on the form
@@ -29,12 +29,13 @@ function signupValidation()
     document.getElementById("date_error").innerHTML= date_error_msg;
     document.getElementById("gender_error").innerHTML= gender_error_msg;
     
-   
     // if there are error messages, don't proceed with the form
     if (!(username_error_msg === " ") || !(password_error_msg === " ") || !(date_error_msg === " ") || !(gender_error_msg === " "))
     {
        return false;
     }
+
+    storeUserData(username, password, gender, dob);
 
     window.location.href = "../homepage/homepage.html";
 }
@@ -63,10 +64,22 @@ function usernameValidation(username)
     {
         return("Username cannot be longer than 20 characters");
     }
-    if (username==="ASSAS")
+
+    // Retrieve user data from local storage
+    const stored_user_data = localStorage.getItem('user_data');
+
+    // Check if any user data is stored
+    if (stored_user_data) 
     {
-        return("Username already exists");
+        // Parse the JSON string to get the user data as an object
+        const parsed_user_data = JSON.parse(stored_user_data);
+
+        // Check if the provided username matches any existing usernames
+        if (username === parsed_user_data.username) {
+            return "Username already exists";
+        }
     }
+
     return(" ");
 }
 /* 
@@ -157,3 +170,20 @@ function genderValidation(gender)
     }
     return(" ");
 }
+
+function storeUserData(username, password, gender, dob) 
+{
+    // create a user object 
+    const user = 
+    {
+        username: username,
+        password: password,
+        gender: gender,
+        date_of_birth: dob
+    };
+    const userJSON = JSON.stringify(user);
+    localStorage.setItem('user_data', userJSON);
+}
+
+
+
