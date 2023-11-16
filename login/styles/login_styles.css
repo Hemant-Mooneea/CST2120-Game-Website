@@ -128,7 +128,7 @@ input
 {   
     height: 20px;
     color: rgb(248, 0, 0);
-    top:-15px;
+    top: -5px;
     font-size: 70px;
 }
 .gender-error-text

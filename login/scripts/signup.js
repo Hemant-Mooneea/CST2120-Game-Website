@@ -65,23 +65,31 @@ function usernameValidation(username)
         return("Username cannot be longer than 20 characters");
     }
 
-    // Retrieve user data from local storage
-    const stored_user_data = localStorage.getItem('user_data');
-
-    // Check if any user data is stored
-    if (stored_user_data) 
+    if(isUsernameTaken(username))
     {
-        // Parse the JSON string to get the user data as an object
-        const parsed_user_data = JSON.parse(stored_user_data);
-
-        // Check if the provided username matches any existing usernames
-        if (username === parsed_user_data.username) {
-            return "Username already exists";
-        }
+        return("Username already exists"); 
     }
 
     return(" ");
 }
+
+function isUsernameTaken(username) 
+{
+    const storedUserData = localStorage.getItem('user_data');
+
+    if (storedUserData) {
+        const parsedUserData = JSON.parse(storedUserData);
+
+        // Iterate through all stored users to check for the provided username
+        for (const user of parsedUserData) {
+            if (username === user.username) {
+                return true; // Username already exists
+            }
+        }
+    }
+    return false; // Username is not taken
+}
+
 /* 
 This Function takes in the password and checks whether the password :
     is blank
@@ -174,19 +182,24 @@ function genderValidation(gender)
 This function creates a user object using data from the form 
 and stores it in the local storage 
 */
-function storeUserData(username, password, gender, dob) 
-{
-    // create a user object 
-    const user = 
-    {
+function getUserData() {
+    const userDataJSON = localStorage.getItem('user_data');
+    return userDataJSON ? JSON.parse(userDataJSON) : [];
+}
+
+function storeUserData(username, password, gender, dob) {
+    const user = {
         username: username,
         password: password,
         gender: gender,
         date_of_birth: dob
     };
-    const userJSON = JSON.stringify(user);
-    localStorage.setItem('user_data', userJSON);
-}
 
+    let users = getUserData();
+    users.push(user);
+    
+    const usersJSON = JSON.stringify(users);
+    localStorage.setItem('user_data', usersJSON);
+}
 
 

@@ -85,3 +85,7 @@
     list-style-type: none; /* Remove default list styling */
     padding: 0; /* Remove default padding */
 }
+.error-text, .gender-error-text
+{   
+    top:-15px;
+}
