@@ -81,11 +81,11 @@ function isUsernameTaken(username)
     {
         const parsedUserData = JSON.parse(storedUserData);
 
-        // Iterate through all stored users to check for the provided username
-        for (const user of parsedUserData) {
-            if (username === user.username) {
-                return true; // Username already exists
-            }
+        // Find the user with the provided username
+        const foundUser = parsedUserData.find(user => user.username === username);
+        if (foundUser) 
+        {
+            return "Username already exists";
         }
     }
     return false; // Username is not taken
