@@ -3,14 +3,14 @@ function getLoginData()
     // Get the input data from the fields
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+    document.getElementById("username_error").innerHTML = " ";
+    document.getElementById("password_error").innerHTML = " ";
 
     if (!(checkUserCredentials(username, password)))
     {
         return false;
     }
 
-    document.getElementById("username_error").innerHTML = " ";
-    document.getElementById("password_error").innerHTML = " ";
     window.location.href = "../homepage/homepage.html";
 }
 
