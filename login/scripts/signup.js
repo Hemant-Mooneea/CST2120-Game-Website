@@ -196,6 +196,7 @@ function storeUserData(username, password, gender, dob) {
         password: password,
         gender: gender,
         date_of_birth: dob
+        
     };
 
     let users = getUserData();
