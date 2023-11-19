@@ -77,7 +77,8 @@ function isUsernameTaken(username)
 {
     const storedUserData = localStorage.getItem('user_data');
 
-    if (storedUserData) {
+    if (storedUserData) 
+    {
         const parsedUserData = JSON.parse(storedUserData);
 
         // Iterate through all stored users to check for the provided username
@@ -178,15 +179,17 @@ function genderValidation(gender)
     }
     return(" ");
 }
-/*
-This function creates a user object using data from the form 
-and stores it in the local storage 
-*/
-function getUserData() {
+
+function getUserData()
+{
     const userDataJSON = localStorage.getItem('user_data');
     return userDataJSON ? JSON.parse(userDataJSON) : [];
 }
 
+/*
+This function creates a user object using data from the form 
+and stores it in the local storage 
+*/
 function storeUserData(username, password, gender, dob) {
     const user = {
         username: username,
