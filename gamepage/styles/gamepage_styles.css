@@ -37,6 +37,10 @@
     height: 100px;
     background: #373F47; /* Dark gray background color */
 }
+.game-container
+{
+    height: 720px;
+}
 
 /* Styles for the controls container */
 .controls-container
@@ -44,7 +48,6 @@
     position: relative;
     height: 480px;
     background: #727272; /* Grayish background color */
-    margin-top: 725px;
 }
 
 /* Styles for various text elements */
