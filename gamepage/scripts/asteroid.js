@@ -15,4 +15,3 @@ class Asteroid extends Phaser.GameObjects.Sprite {
     }
 }
 export default Asteroid
-// 415, 575, 750, 915, 1075
