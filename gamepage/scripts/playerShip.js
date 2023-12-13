@@ -1,4 +1,4 @@
-class playerShip extends Phaser.GameObjects.Sprite
+class PlayerShip extends Phaser.GameObjects.Sprite
 {
     constructor(scene, x, y, texture) 
     {  
@@ -31,4 +31,4 @@ class playerShip extends Phaser.GameObjects.Sprite
         this.body.velocity.x = 0;
     }
 }
-export default playerShip;
+export default PlayerShip;

@@ -13,4 +13,12 @@ class Asteroid extends Phaser.GameObjects.Sprite {
         this.body.setVelocity(0, speed);
     }
 }
-export default Asteroid
+class SpecialAsteroid extends Asteroid 
+{
+    constructor(scene, x, y, texture) 
+    {
+        super(scene, x, y, texture);
+    }
+
+}
+export { Asteroid, SpecialAsteroid };

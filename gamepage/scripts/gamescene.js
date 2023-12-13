@@ -1,13 +1,13 @@
 import playerShip from './playership.js';
 import Bullet from './bullet.js';
-import Asteroid from './asteroid.js'
+import { Asteroid, SpecialAsteroid } from './Asteroid.js';
 import Planets from './planets.js';
-import menuScene from './menuscene.js';
-class gameScene extends Phaser.Scene
+import MenuScene from './menuscene.js';
+class GameScene extends Phaser.Scene
 {
     constructor()
     {
-        super({key: "game_scene"});
+        super({key: "game"});
     }
     preload()
     {
@@ -39,7 +39,7 @@ class gameScene extends Phaser.Scene
         this.physics.add.collider(this.bullets, this.asteroids, this.bulletAsteroidCollision, null, this);
         this.physics.add.collider(this.player, this.asteroids, this.shipAsteroidCollision, null, this);
         
-        this.asteroid_speed = 10000;
+        this.asteroid_speed = 100;
         this.asteroid_probability = 50;
 
         this.totalTime = 0;
@@ -259,4 +259,4 @@ class gameScene extends Phaser.Scene
     
 
 }
-export default gameScene
+export default GameScene

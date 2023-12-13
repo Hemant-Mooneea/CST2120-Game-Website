@@ -1,4 +1,4 @@
-class menuScene extends Phaser.Scene
+class MenuScene extends Phaser.Scene
 {   
     constructor()
     {
@@ -56,7 +56,7 @@ class menuScene extends Phaser.Scene
         if (this.keyEnter.isDown)
         {
             sessionStorage.setItem('difficultyCounter', this.difficulty_counter);
-            this.scene.start("gameover");  
+            this.scene.start("intro");  
         }
         if (this.keyAJustPressed) 
         {
@@ -107,4 +107,4 @@ class menuScene extends Phaser.Scene
         return true;
     }
 }
-export default menuScene;
+export default MenuScene;

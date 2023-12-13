@@ -1,4 +1,4 @@
-class introScene extends Phaser.Scene
+class IntroScene extends Phaser.Scene
 {
     constructor()
     {
@@ -22,8 +22,8 @@ class introScene extends Phaser.Scene
     {
         if (this.keyEnter.isDown)
         {
-            this.scene.start("game_scene");  
+            this.scene.start("game");  
         }
     }
 }
-export default introScene;
+export default IntroScene;
