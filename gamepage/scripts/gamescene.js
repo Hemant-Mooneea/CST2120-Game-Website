@@ -29,19 +29,20 @@ class gameScene extends Phaser.Scene
         this.setupTimers();
         this.setupControls();
 
-        this.startTime = this.time.now; 
+        
         this.bullets = this.physics.add.group({ classType: Bullet, defaultKey: 'playerBulletImage' });
         this.asteroids = this.physics.add.group({ classType: Asteroid, defaultKey: 'asteroidImage' });
         this.physics.add.collider(this.bullets, this.asteroids, this.bulletAsteroidCollision, null, this);
-
-        this.startTime = 0;
+        
         this.totalTime = 0;
+        this.startTime = this.time.now; 
         this.canFire = true;
 
-   
+
     }
     update()
     {   
+
         this.timer();
         this.handlePlayerMovement();
         this.spawnAsteroid();
@@ -50,7 +51,7 @@ class gameScene extends Phaser.Scene
     {
         this.score_text_style = { font: '80px Game Over', fill: '#fff' };
         this.player_score = 0
-        this.score_text = this.add.text(30, -20,"SCORE:" + this.player_score , this.score_text_style);
+        this.score_text = this.add.text(35, -20,"SCORE:" + this.player_score , this.score_text_style);
         this.timer_text = this.add.text(1385, -15, "00:00", this.score_text_style);
         this.background = this.add.image(760, 360,"background_image");
         this.background.setDepth(-1);
@@ -110,13 +111,14 @@ class gameScene extends Phaser.Scene
             
         });
     }
+
     timer()
     {
         
         this.totalTime = Math.floor((this.time.now - this.startTime) / 1000); // Convert milliseconds to seconds
         const minutes = Math.floor(this.totalTime / 60).toString().padStart(2, '0'); // Get minutes with leading zero
         const seconds = (this.totalTime % 60).toString().padStart(2, '0'); // Get seconds with leading zero
-        console.log(minutes);
+        console.log(seconds);
         this.timer_text.setText(minutes + ":" + seconds);
     }
     handlePlayerMovement()
@@ -189,7 +191,6 @@ class gameScene extends Phaser.Scene
                 asteroid.spawn(x, y);
             }
         }
-
     }
     spawnPlanets() 
     {
