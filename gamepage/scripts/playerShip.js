@@ -12,7 +12,7 @@ class playerShip extends Phaser.GameObjects.Sprite
     }
     moveLeft() 
     {   
-        if (this.position !== 1)    
+        if (this.position != 1)    
         {
             this.body.velocity.x = -this.getData('speed');
             this.position -= 1;
@@ -20,7 +20,7 @@ class playerShip extends Phaser.GameObjects.Sprite
     }
     moveRight()
     {
-        if (this.position !== 5)
+        if (this.position != 5)
         {
             this.body.velocity.x = this.getData('speed');
             this.position += 1;

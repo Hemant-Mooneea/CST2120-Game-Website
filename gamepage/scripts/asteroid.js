@@ -4,14 +4,13 @@ class Asteroid extends Phaser.GameObjects.Sprite {
         this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.setData('speed', 100); 
         this.setTexture(texture);
        
     }
-    spawn(x, y)
+    spawn(x, y, speed)
     {
         this.setPosition(x, y);
-        this.body.setVelocity(0, this.getData('speed'));
+        this.body.setVelocity(0, speed);
     }
 }
 export default Asteroid

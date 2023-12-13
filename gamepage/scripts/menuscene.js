@@ -55,7 +55,8 @@ class menuScene extends Phaser.Scene
 
         if (this.keyEnter.isDown)
         {
-            this.scene.start("intro");  
+            sessionStorage.setItem('difficultyCounter', this.difficulty_counter);
+            this.scene.start("gameover");  
         }
         if (this.keyAJustPressed) 
         {

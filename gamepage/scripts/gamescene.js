@@ -2,6 +2,7 @@ import playerShip from './playership.js';
 import Bullet from './bullet.js';
 import Asteroid from './asteroid.js'
 import Planets from './planets.js';
+import menuScene from './menuscene.js';
 class gameScene extends Phaser.Scene
 {
     constructor()
@@ -25,26 +26,36 @@ class gameScene extends Phaser.Scene
     }
     create()
     {
+        const storedDifficulty = sessionStorage.getItem('difficultyCounter');
+        const difficultyCounter = storedDifficulty ? parseInt(storedDifficulty) : 1; // Parse to integer (default to 1 if not found)
+        this.score_multiplier = difficultyCounter;     
+        
         this.setupScene();
         this.setupTimers();
         this.setupControls();
-
-        
+                
         this.bullets = this.physics.add.group({ classType: Bullet, defaultKey: 'playerBulletImage' });
         this.asteroids = this.physics.add.group({ classType: Asteroid, defaultKey: 'asteroidImage' });
         this.physics.add.collider(this.bullets, this.asteroids, this.bulletAsteroidCollision, null, this);
+        this.physics.add.collider(this.player, this.asteroids, this.shipAsteroidCollision, null, this);
         
+        this.asteroid_speed = 10000;
+        this.asteroid_probability = 50;
+
         this.totalTime = 0;
         this.startTime = this.time.now; 
         this.canFire = true;
-
+        this.player_alive = true;
 
     }
     update()
     {   
 
-        this.timer();
-        this.handlePlayerMovement();
+        if (this.player_alive)
+        {
+            this.handlePlayerMovement();
+            this.timer();
+        }
         this.spawnAsteroid();
     }
     setupScene()
@@ -62,8 +73,7 @@ class gameScene extends Phaser.Scene
     {
         this.fireDelay = 500; // The delay in millisecond
         this.planetDelay = 40000;
-        this.difficultyDelay = 30000;
-
+        this.difficultyDelay = 40000 - (10000 * this.score_multiplier); 
         this.fireTimer = this.time.addEvent
         ({
             delay: this.fireDelay,
@@ -83,7 +93,7 @@ class gameScene extends Phaser.Scene
         this.difficultyDelay = this.time.addEvent
         ({
             delay: this.difficultyDelay,
-            callback: this.spawnAsteroid,
+            callback: this.increaseDifficulty,
             callbackScope:this,
             loop: true
         })
@@ -92,8 +102,6 @@ class gameScene extends Phaser.Scene
     {
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
         
         this.keyAJustPressed = false;
@@ -118,7 +126,6 @@ class gameScene extends Phaser.Scene
         this.totalTime = Math.floor((this.time.now - this.startTime) / 1000); // Convert milliseconds to seconds
         const minutes = Math.floor(this.totalTime / 60).toString().padStart(2, '0'); // Get minutes with leading zero
         const seconds = (this.totalTime % 60).toString().padStart(2, '0'); // Get seconds with leading zero
-        console.log(seconds);
         this.timer_text.setText(minutes + ":" + seconds);
     }
     handlePlayerMovement()
@@ -157,12 +164,10 @@ class gameScene extends Phaser.Scene
     {
         this.canFire = true;
     }
-
-    
     spawnAsteroid() 
     {
         let lane = Math.floor(Math.random() * 5) + 1;
-        let chance = Math.floor(Math.random() * 50);
+        let chance = Math.floor(Math.random() * this.asteroid_probability);
         let x = 0;
         let y = 0;
 
@@ -188,7 +193,7 @@ class gameScene extends Phaser.Scene
             }
             const asteroid = this.asteroids.get(x, y);
             if (asteroid) {
-                asteroid.spawn(x, y);
+                asteroid.spawn(x, y, this.asteroid_speed);
             }
         }
     }
@@ -220,19 +225,36 @@ class gameScene extends Phaser.Scene
                 planet_img = "planet6_image";
                 break;
         }
-        const planet = new Planets(this, x, y, planet_img);
+        const planet = new Planets(this, x, y, planet_img);     
         planet.setDepth(0);
         planet.spawn(x, y, scale);
 
     }
-    
+    increaseDifficulty()
+    {
+        this.asteroid_speed += 50;
+        if (this.asteroid_speed % 50 == 0 && this.asteroid_probability > 8)
+        {
+            this.asteroid_probability -= 2;
+        }
+    }
     bulletAsteroidCollision(bullet, asteroid)
     {
         bullet.destroy(); 
         asteroid.destroy();
 
-        this.player_score += 1;
+        this.player_score += (1 * this.score_multiplier);
         this.score_text.setText("SCORE:" + this.player_score);
+    }
+    shipAsteroidCollision(player, asteroid) 
+    {
+        this.player_alive = false;
+        sessionStorage.setItem('playerScore', this.player_score);
+        sessionStorage.setItem('gameTime', this.timer_text.text);
+
+        this.scene.start("gameover");  
+        player.destroy(); 
+        asteroid.destroy();
     }
     
 
