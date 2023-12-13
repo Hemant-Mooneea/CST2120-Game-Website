@@ -1,8 +1,8 @@
 import playerShip from './playership.js';
 import Bullet from './bullet.js';
-import { Asteroid, SpecialAsteroid } from './Asteroid.js';
+import { Asteroid, RedAsteroid, YellowAsteroid } from './Asteroid.js';
 import Planets from './planets.js';
-import MenuScene from './menuscene.js';
+
 class GameScene extends Phaser.Scene
 {
     constructor()
@@ -16,6 +16,8 @@ class GameScene extends Phaser.Scene
         this.load.image("playerShipImage", "assets/graphics/pixel_ship_blue.png");
         this.load.image("playerBulletImage", "assets/graphics/pixel_laser_blue.png");
         this.load.image("asteroidImage", "assets/graphics/asteroid_grey.png");
+        this.load.image("redasteroidImage", "assets/graphics/asteroid_red.png")
+        this.load.image("yellowasteroidImage","assets/graphics/asteroid_yellow.png")
         this.load.image("planet1_image","assets/graphics/planet1.png");
         this.load.image("planet2_image","assets/graphics/planet2.png");
         this.load.image("planet3_image","assets/graphics/planet3.png");
@@ -34,12 +36,19 @@ class GameScene extends Phaser.Scene
         this.setupTimers();
         this.setupControls();
                 
-        this.bullets = this.physics.add.group({ classType: Bullet, defaultKey: 'playerBulletImage' });
-        this.asteroids = this.physics.add.group({ classType: Asteroid, defaultKey: 'asteroidImage' });
+        this.bullets = this.physics.add.group({ classType: Bullet, defaultKey: 'playerBulletImage'});
+        this.asteroids = this.physics.add.group({ classType: Asteroid, defaultKey: 'asteroidImage'});
+        this.red_asteroids = this.physics.add.group({ classType: RedAsteroid, defaultKey: 'redasteroidImage'});
+        this.yellow_asteroids = this.physics.add.group({ classType: YellowAsteroid, defaultKey: 'yellowasteroidImage'});
+
         this.physics.add.collider(this.bullets, this.asteroids, this.bulletAsteroidCollision, null, this);
         this.physics.add.collider(this.player, this.asteroids, this.shipAsteroidCollision, null, this);
-        
-        this.asteroid_speed = 100;
+        this.physics.add.collider(this.bullets, this.red_asteroids, this.bulletredAsteroidCollision, null, this);
+        this.physics.add.collider(this.player, this.red_asteroids, this.shipredAsteroidCollision, null, this);
+        this.physics.add.collider(this.bullets, this.yellow_asteroids, this.bulletyellowAsteroidCollision, null, this);
+        this.physics.add.collider(this.player, this.yellow_asteroids, this.shipyellowAsteroidCollision, null, this);
+
+        this.asteroid_speed = 100;  
         this.asteroid_probability = 50;
 
         this.totalTime = 0;
@@ -122,7 +131,6 @@ class GameScene extends Phaser.Scene
 
     timer()
     {
-        
         this.totalTime = Math.floor((this.time.now - this.startTime) / 1000); // Convert milliseconds to seconds
         const minutes = Math.floor(this.totalTime / 60).toString().padStart(2, '0'); // Get minutes with leading zero
         const seconds = (this.totalTime % 60).toString().padStart(2, '0'); // Get seconds with leading zero
@@ -139,10 +147,6 @@ class GameScene extends Phaser.Scene
         {
             this.player.moveRight();    
             this.keyDJustPressed = false;
-        }
-        else
-        {
-            this.player.resetX();
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyJ)) 
         {
@@ -166,35 +170,59 @@ class GameScene extends Phaser.Scene
     }
     spawnAsteroid() 
     {
-        let lane = Math.floor(Math.random() * 5) + 1;
-        let chance = Math.floor(Math.random() * this.asteroid_probability);
+
+        let normal_chance = Math.floor(Math.random() * this.asteroid_probability);
+        let red_chance = Math.floor(Math.random() * (this.asteroid_probability + 600));
+        let yellow_chance = Math.floor(Math.random() * (this.asteroid_probability + 750));
+
         let x = 0;
         let y = 0;
 
-        if (chance == 0)
+        if (normal_chance == 0)
         {
-            switch(lane)
-            {
-                case 1:
-                    x = 415;
-                    break;
-                case 2:
-                    x = 575;
-                    break;
-                case 3:
-                    x = 750;
-                    break;
-                case 4:
-                    x = 915;
-                    break;
-                case 5:
-                    x = 1075;
-                    break;
-            }
+            x = this.selectLane();
             const asteroid = this.asteroids.get(x, y);
-            if (asteroid) {
+            if (asteroid) 
+            {
                 asteroid.spawn(x, y, this.asteroid_speed);
             }
+        }
+        if (red_chance == 0)
+        {
+            x = this.selectLane();
+            const red_asteroid = this.red_asteroids.get(x, y);
+            if (red_asteroid) 
+            {
+                red_asteroid.spawn(x, y, this.asteroid_speed);
+                red_asteroid.body.setImmovable(true);
+            }
+        }
+        if (yellow_chance == 0)
+        {
+            x = this.selectLane();
+            const yellow_asteroid = this.yellow_asteroids.get(x, y);
+            if (yellow_asteroid) 
+            {
+                yellow_asteroid.spawn(x, y, this.asteroid_speed);
+            }
+        }
+    }
+    selectLane()
+    {
+        let lane = Math.floor(Math.random() * 5) + 1;
+        switch(lane)
+        {
+            case 1:
+                return(415);
+            case 2:
+                return(575);
+            case 3:
+                return(750);
+            case 4:
+                return(915);
+            case 5:
+                return(1075);
+
         }
     }
     spawnPlanets() 
@@ -247,6 +275,35 @@ class GameScene extends Phaser.Scene
         this.score_text.setText("SCORE:" + this.player_score);
     }
     shipAsteroidCollision(player, asteroid) 
+    {   
+        this.gameOver(player);
+        asteroid.destroy();
+    }
+
+    bulletredAsteroidCollision(bullet,red_asteroid)
+    {
+        bullet.destroy();
+    }
+    shipredAsteroidCollision(player, red_asteroid)
+    {
+        this.gameOver(player);
+        red_asteroid.destroy();
+    }
+    bulletyellowAsteroidCollision(bullet, yellow_asteroid)
+    {
+        bullet.destroy(); 
+        yellow_asteroid.destroy();
+
+        this.player_score += (25 * this.score_multiplier);
+        this.score_text.setText("SCORE:" + this.player_score);
+    }
+    shipyellowAsteroidCollision(player, yellow_asteroid)
+    {
+        this.gameOver(player);
+        yellow_asteroid.destroy();
+    }
+
+    gameOver(player)
     {
         this.player_alive = false;
         sessionStorage.setItem('playerScore', this.player_score);
@@ -254,9 +311,7 @@ class GameScene extends Phaser.Scene
 
         this.scene.start("gameover");  
         player.destroy(); 
-        asteroid.destroy();
     }
-    
 
 }
 export default GameScene

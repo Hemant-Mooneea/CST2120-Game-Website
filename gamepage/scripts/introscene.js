@@ -6,13 +6,13 @@ class IntroScene extends Phaser.Scene
     }
     preload()
     {   
-        let line_1="The year is 2077, Aliens are planning to invade planet Earth";
-        let line_2="You are Humanity's last hope";
-        let line_3="Are you ready?"
-        this.add.text(170, 110, line_1, { font: '110px Game Over', fill: '#fff' });
-        this.add.text(480, 300, line_2, { font: '110px Game Over', fill: '#fff' });
-        this.add.text(610, 500, line_3, { font: '110px Game Over', fill: '#fff' });
 
+        this.add.text(450, 100, "Shoot down the grey asteroids!", { font: '110px Game Over', fill: '#fff' });
+        this.add.text(500, 300, "Be careful of the red ones", { font: '110px Game Over', fill: '#fff' });
+        this.add.text(450, 500, "The yellow one gives more points", { font: '110px Game Over', fill: '#fff' });
+        this.add.text(759.5, 100, "grey", { font: '110px Game Over', fill: '#838383' });
+        this.add.text(847.5, 300, "red", { font: '110px Game Over', fill: '#ff0000' });
+        this.add.text(530, 500, "yellow", { font: '110px Game Over', fill: '#ffff00' });
     }
     create()
     {

@@ -6,29 +6,24 @@ class PlayerShip extends Phaser.GameObjects.Sprite
         this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.setData("speed", 10000);
         this.setScale(0.75);
-        this.position = 3;
+        this.minX = 300; // Define your minimum X value
+        this.maxX = 1200; // Define your maximum X value
     }
     moveLeft() 
     {   
-        if (this.position != 1)    
+        if (this.body.x - 175 >= this.minX)    
         {
-            this.body.velocity.x = -this.getData('speed');
-            this.position -= 1;
+            this.body.x -= 165;
         }   
     }
     moveRight()
     {
-        if (this.position != 5)
+        if (this.body.x + 175 <= this.maxX)
         {
-            this.body.velocity.x = this.getData('speed');
-            this.position += 1;
+           this.body.x += 165;
         }
     }
-    resetX()
-    {
-        this.body.velocity.x = 0;
-    }
+
 }
 export default PlayerShip;
