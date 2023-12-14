@@ -8,17 +8,24 @@ class GameoverScene extends Phaser.Scene
     {   
         const storedScore = sessionStorage.getItem('playerScore');
         const storedTime = sessionStorage.getItem('gameTime');
+        this.load.image("background_gameover", "assets/graphics/background_menu.jpg");
         this.playerScore = storedScore || "0"; // Default score if not found
         this.gameTime = storedTime || "00:00"; // Default time if not found
     }
     create()
     {
 
+        this.background = this.add.image(760, 360,"background_gameover");
+        this.background.setDepth(-1);
+        this.background.displayWidth = this.sys.canvas.width;
+        this.background.displayHeight = this.sys.canvas.height;
+
         const line_1="YOU DIED!"
         this.add.text(650, 0, line_1, { font: '110px Game Over', fill: '#fff' });
         
         this.border_rect = this.add.rectangle(760, 400, 500, 500);
-        this.border_rect.setStrokeStyle(10, 0xffffff);
+        this.border_rect.setStrokeStyle(15, 0xffffff);
+        this.black_rect = this.add.rectangle(760,400,500,500,0x000000);
 
         this.info_text_style = { font: '100px Game Over', fill: '#fff' };
         this.data_text_style = { font: '90px Game Over', fill: '#fff' };
