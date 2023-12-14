@@ -6,15 +6,15 @@ class GameoverScene extends Phaser.Scene
     }
     preload()
     {   
-        const storedScore = sessionStorage.getItem('playerScore');
+        const currentScore = parseInt(sessionStorage.getItem('playerScore'));
         const storedTime = sessionStorage.getItem('gameTime');
         this.load.image("background_gameover", "assets/graphics/background_menu.jpg");
-        this.playerScore = storedScore || "0"; // Default score if not found
-        this.gameTime = storedTime || "00:00"; // Default time if not found
+        this.playerScore = currentScore; 
+        this.gameTime = storedTime; 
     }
     create()
     {
-        this.storeUserInfo();   
+        this.current_date = this.obtainDate();
         this.background = this.add.image(760, 360,"background_gameover");
         this.background.setDepth(-1);
         this.background.displayWidth = this.sys.canvas.width;
@@ -37,8 +37,9 @@ class GameoverScene extends Phaser.Scene
         this.timer_number = this.add.text(860, 340, this.gameTime, this.data_text_style);
 
         this.date_text = this.add.text(550, 430,"DATE:" , this.info_text_style);
-        this.date_number = this.add.text(835, 440, this.obtainDate(), this.data_text_style);
+        this.date_number = this.add.text(835, 440, this.current_date, this.data_text_style);
         
+        this.handleUserInfo();           
         this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }
     obtainDate()
@@ -57,7 +58,7 @@ class GameoverScene extends Phaser.Scene
             this.scene.start("default");  
         }
     }
-    storeUserInfo() 
+    handleUserInfo() 
     {
         const storedUserData = localStorage.getItem('user_data');
         const score = sessionStorage.getItem('playerScore');
@@ -71,8 +72,18 @@ class GameoverScene extends Phaser.Scene
             {
                 // Adds the score to the user's money
                 currentUser.money = parseInt(currentUser.money) + parseInt(score);
+                
+                if (this.playerScore > currentUser.best_score || currentUser.best_score == 0) 
+                {   
+                    this.add.text(630, 130, "NEW RECORD!", this.info_text_style)
+                    currentUser.best_score = this.playerScore;
+                    currentUser.date = this.current_date;
+                }
+    
                 localStorage.setItem('user_data', JSON.stringify(parsedUserData));
             }
+
+
         }
     }
     
