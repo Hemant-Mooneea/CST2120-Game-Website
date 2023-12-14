@@ -72,6 +72,7 @@ class GameScene extends Phaser.Scene
         this.startTime = this.time.now; 
         this.canFire = true;
         this.player_alive = true;
+        this.score_multiplier = 1;
 
     }
     update()

@@ -14,7 +14,7 @@ class GameoverScene extends Phaser.Scene
     }
     create()
     {
-
+        this.storeUserInfo();   
         this.background = this.add.image(760, 360,"background_gameover");
         this.background.setDepth(-1);
         this.background.displayWidth = this.sys.canvas.width;
@@ -57,5 +57,24 @@ class GameoverScene extends Phaser.Scene
             this.scene.start("default");  
         }
     }
+    storeUserInfo() 
+    {
+        const storedUserData = localStorage.getItem('user_data');
+        const score = sessionStorage.getItem('playerScore');
+        // Check if any user data is stored
+        if (storedUserData)
+        {
+            const parsedUserData = JSON.parse(storedUserData);
+            const currentUser = parsedUserData.find(user => user.username === sessionStorage.getItem('username'));
+    
+            if (currentUser)
+            {
+                // Adds the score to the user's money
+                currentUser.money = parseInt(currentUser.money) + parseInt(score);
+                localStorage.setItem('user_data', JSON.stringify(parsedUserData));
+            }
+        }
+    }
+    
 }
 export default GameoverScene;

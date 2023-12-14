@@ -197,12 +197,11 @@ function storeUserData(username, password, gender, dob) {
         gender: gender,
         date_of_birth: dob,
         best_score:0,
-        date:"NAN",
+        date:"no date",
         money:0,
         upgrade_1:false,
         upgrade_2:false,
-        upgrade_3:false,
-        powerup:0       
+        upgrade_3:false 
     };
 
     let users = getUserData();

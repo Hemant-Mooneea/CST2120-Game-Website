@@ -13,8 +13,9 @@ class ShopScene extends Phaser.Scene
     }
     create()
     {   
+        this.obtainUserInfo();
         this.add.text(500, -25, "WELCOME TO THE SHOP", { font: '110px Game Over', fill: '#fff' });
-        this.money_text = this.add.text(35, -5,"MONEY:" + 0, { font: '80px Game Over', fill: '#fff' });
+        this.money_text = this.add.text(35, -5,"MONEY:" + this.money, { font: '80px Game Over', fill: '#fff' });
         
         this.cost_text_style = { font: '70px Game Over', fill: '#fff' };
         this.description_text_style = { font: '65px Game Over', fill: '#fff' };
@@ -33,6 +34,8 @@ class ShopScene extends Phaser.Scene
         this.cloak_powerup.setScale(0.4);
         this.shoot_powerup = this.add.image(1200, 350, "shoot_powerup");
         this.shoot_powerup.setScale(0.4);
+       
+        console.log(this.money);
 
         this.minX = 300; // Define minimum X value
         this.maxX = 1200; // Define maximum X value
@@ -123,25 +126,15 @@ class ShopScene extends Phaser.Scene
         if (storedUserData) {
             const parsedUserData = JSON.parse(storedUserData);
     
-            // Find the user with the provided username
-            const foundUser = parsedUserData.find(user => user.username === username);
+            const currentUser = parsedUserData.find(user => user.username === sessionStorage.getItem('username'));
     
-            if (!foundUser) {
-                document.getElementById("username_error").innerHTML = "Username does not exist";
-                return false;
+            if (currentUser) 
+            {
+                this.money = currentUser.money;
+                this.power1 = currentUser.upgrade_1;
+                this.power2 = currentUser.upgrade_2;
+                this.power3 = currentUser.upgrade_3;
             }
-    
-            // Username exists, check the password
-            if (foundUser.password !== password) {
-                document.getElementById("password_error").innerHTML = "Incorrect password";
-                return false;
-            }
-    
-            // Username and password match, set sessionStorage
-            sessionStorage.setItem('isLoggedIn', 'true');
-            sessionStorage.setItem('username', username);
-    
-            return true;
         }
     }
 }
