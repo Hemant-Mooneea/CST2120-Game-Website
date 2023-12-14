@@ -1,5 +1,6 @@
 import MenuScene from './menuscene.js';
 import IntroScene from './introscene.js';
+import DifficultyScene from './difficultyscene.js';
 import GameScene from './gamescene.js';
 import GameoverScene from './gameoverscene.js'
 import ShopScene from './shopscene.js'
@@ -33,7 +34,7 @@ window.onload = function()
         width: SCREEN_WIDTH, // Width of the game in pixels
         height: SCREEN_HEIGHT, // Height of the game in pixels
         backgroundColor: 'black',
-        scene: [MenuScene, IntroScene, GameScene, GameoverScene,ShopScene], // The scenes of the game
+        scene: [MenuScene, IntroScene, GameScene, GameoverScene, ShopScene, DifficultyScene], // The scenes of the game
         physics: { default: 'arcade' }, // The physics engine to use
         parent: 'game', // Create the game inside the <div id="game"> 
     });

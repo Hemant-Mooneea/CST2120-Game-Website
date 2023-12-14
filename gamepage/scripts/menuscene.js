@@ -53,7 +53,7 @@ class MenuScene extends Phaser.Scene
         {   
             if (this.play_selected)
             {
-                this.scene.start("intro");  
+                this.scene.start("difficulty");  
             }
             else
             {

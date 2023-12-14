@@ -20,7 +20,7 @@ class ShopScene extends Phaser.Scene
         this.cost_text_style = { font: '70px Game Over', fill: '#fff' };
         this.description_text_style = { font: '65px Game Over', fill: '#fff' };
 
-        this.cost_text = this.add.text(728, 580, 1000 , this.cost_text_style);
+        this.cost_text = this.add.text(728, 580, 2500, this.cost_text_style);
         this.desc_text = this.add.text(420, 620, "Allows the user to dodge asteroids for a certain amount of time", this.description_text_style)
 
         
@@ -35,7 +35,7 @@ class ShopScene extends Phaser.Scene
         this.shoot_powerup = this.add.image(1200, 350, "shoot_powerup");
         this.shoot_powerup.setScale(0.4);
        
-        console.log(this.money);
+
 
         this.minX = 300; // Define minimum X value
         this.maxX = 1200; // Define maximum X value
@@ -104,16 +104,15 @@ class ShopScene extends Phaser.Scene
         switch(this.power_position)
         {
             case 1:
-                this.cost_text.setText(3000);
+                this.cost_text.setText(5000);
                 this.desc_text.setText("Increases odds of yellow asteroids for a certain amount of time");
                 break;
             case 2:
-                this.cost_text.setText(1000);
+                this.cost_text.setText(2500);
                 this.desc_text.setText("Allows the ship to dodge asteroids for a certain amount of time");
                 break;
             case 3:
-                console.log("??");
-                this.cost_text.setText(2000);
+                this.cost_text.setText(3000);
                 this.desc_text.setText("Allows the ship to shoot faster for a certain amount of time");
                 break;
         }

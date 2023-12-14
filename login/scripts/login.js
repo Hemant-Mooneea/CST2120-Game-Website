@@ -33,8 +33,9 @@ function checkUserCredentials(username, password) {
         }
 
         // Username and password match, set sessionStorage
-        sessionStorage.setItem('isLoggedIn', 'true');
-        sessionStorage.setItem('username', username);
+        sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("username", username);
+        sessionStorage.setItem("powerup", 0);
 
         return true;
     }
