@@ -37,7 +37,7 @@ function signupValidation()
 
     storeUserData(username, password, gender, dob);
 
-    window.location.href = "../homepage/homepage.html";
+    window.location.href = "login.html";
 }
 
 /* 
@@ -48,7 +48,6 @@ This Function takes in the username and checks whether the username:
 */
 function usernameValidation(username)
 {   
-    //Don't forget to check json files if name already exists
     //Checks if username is empty
     if (username === "")
     {
@@ -64,7 +63,7 @@ function usernameValidation(username)
     {
         return("Username cannot be longer than 20 characters");
     }
-
+    //Checks if username already exists
     if(isUsernameTaken(username))
     {
         return("Username already exists"); 
@@ -191,12 +190,19 @@ This function creates a user object using data from the form
 and stores it in the local storage 
 */
 function storeUserData(username, password, gender, dob) {
-    const user = {
+    const user = 
+    {
         username: username,
         password: password,
         gender: gender,
-        date_of_birth: dob
-        
+        date_of_birth: dob,
+        best_score:0,
+        date:"NAN",
+        money:0,
+        upgrade_1:false,
+        upgrade_2:false,
+        upgrade_3:false,
+        powerup:0       
     };
 
     let users = getUserData();

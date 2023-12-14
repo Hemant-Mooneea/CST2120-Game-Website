@@ -10,7 +10,7 @@ function getLoginData()
     {
         return false;
     }
-
+    sessionStorage.setItem('isLoggedIn', 'true');
     window.location.href = "../homepage/homepage.html";
 }
 

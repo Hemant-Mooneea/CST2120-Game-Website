@@ -21,18 +21,19 @@ class MenuScene extends Phaser.Scene
         this.play_text = this.add.text(690, 200, "PLAY", this.options_text_style);
         this.shop_text = this.add.text(690, 400, "SHOP", this.options_text_style);
 
-        this.keyAJustPressed = false;
-        this.keyDJustPressed = false;
+        this.play_selected = true;
+        this.keyWJustPressed = false;
+        this.keySJustPressed = false;
 
         this.input.keyboard.on('keydown', (event) => 
         {
-            if (event.code === 'KeyA') 
+            if (event.code === 'KeyW') 
             {
-                this.keyAJustPressed = true;
+                this.keyWJustPressed = true;
             } 
-            else if (event.code === 'KeyD') 
+            else if (event.code === 'KeyS') 
             {
-                this.keyDJustPressed = true;
+                this.keySJustPressed = true;
             }
             
         });
@@ -40,8 +41,8 @@ class MenuScene extends Phaser.Scene
         this.selection_rect = this.add.rectangle(768, 305, 200, 100);   
         this.selection_rect.setStrokeStyle(10, 0xffffff); // Border style
 
-        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
     }
@@ -49,26 +50,49 @@ class MenuScene extends Phaser.Scene
     {
 
         if (this.keyEnter.isDown)
-        {
-            sessionStorage.setItem('difficultyCounter', this.difficulty_counter);
-            this.scene.start("intro");  
+        {   
+            if (this.play_selected)
+            {
+                this.scene.start("intro");  
+            }
+            else
+            {
+                this.scene.start("shop");  
+            }
         }
         
-        if (this.keyAJustPressed) 
+        if (this.keyWJustPressed) 
         {
-            if(this.difficultySelector("A"))
-            {
-                this.selection_rect.x -=187;
-                this.keyAJustPressed = false; 
+            if(this.optionSelector("W"))
+            {   
+                this.selection_rect.y -=200;
+                this.keyWJustPressed = false; 
             }
         }
-        if (this.keyDJustPressed)
+        if (this.keySJustPressed)
         {
-            if(this.difficultySelector("D"))
+            if(this.optionSelector("S"))
             {
-                this.selection_rect.x +=187;
-                this.keyDJustPressed = false; 
+                this.selection_rect.y +=200;
+                this.keySJustPressed = false; 
             }
+        }
+    }
+    optionSelector(key_pressed)
+    {      
+        if(key_pressed == "S" && this.play_selected)
+        {   
+            this.play_selected = false;
+            return true;
+        }
+        if(key_pressed == "W" && !this.play_selected)
+        {   
+            this.play_selected = true;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
