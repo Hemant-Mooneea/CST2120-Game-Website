@@ -11,10 +11,27 @@ class GameScene extends Phaser.Scene
     }
     preload()
     {
-
+        let random_ship = Math.floor(Math.random() * 4) + 1;
+        switch (random_ship)
+        {
+            case 1:
+                this.load.image("playerShipImage", "assets/graphics/pixel_ship_red.png");
+                this.load.image("playerBulletImage", "assets/graphics/pixel_laser_red.png");
+                break;
+            case 2:
+                this.load.image("playerShipImage", "assets/graphics/pixel_ship_blue.png");
+                this.load.image("playerBulletImage", "assets/graphics/pixel_laser_blue.png");
+                break;
+            case 3:
+                this.load.image("playerShipImage", "assets/graphics/pixel_ship_yellow.png");
+                this.load.image("playerBulletImage", "assets/graphics/pixel_laser_yellow.png");
+                break;
+            case 4: 
+                this.load.image("playerShipImage", "assets/graphics/pixel_ship_green.png");
+                this.load.image("playerBulletImage", "assets/graphics/pixel_laser_green.png");
+                break;
+        }
         this.load.image("background_image", "assets/graphics/stars_bg.png")
-        this.load.image("playerShipImage", "assets/graphics/pixel_ship_blue.png");
-        this.load.image("playerBulletImage", "assets/graphics/pixel_laser_blue.png");
         this.load.image("asteroidImage", "assets/graphics/asteroid_grey.png");
         this.load.image("redasteroidImage", "assets/graphics/asteroid_red.png")
         this.load.image("yellowasteroidImage","assets/graphics/asteroid_yellow.png")

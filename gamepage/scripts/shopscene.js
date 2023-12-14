@@ -59,12 +59,11 @@ class ShopScene extends Phaser.Scene
 
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keyBackspace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE);
         this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         this.background = this.add.image(770, 360,"background_shop");
         this.background.setDepth(-2);
-
-        this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }
     update()
     {
@@ -73,7 +72,10 @@ class ShopScene extends Phaser.Scene
         {
             this.scene.start("game");  
         }
-
+        if (this.keyBackspace.isDown)
+        {
+            this.scene.start("default");
+        }
         if (this.keyDJustPressed) 
         {
             if(this.selection_rect.x + 440 <= this.maxX)
