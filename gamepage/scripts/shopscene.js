@@ -124,7 +124,7 @@ class ShopScene extends Phaser.Scene
                 {
                     this.updateUserInfo(2500, 2);
                 }
-                else if (this.power1 == true)
+                else if (this.power2 == true)
                 {   
                     sessionStorage.setItem("powerup", 2);
                 }
@@ -134,7 +134,7 @@ class ShopScene extends Phaser.Scene
                 {
                     this.updateUserInfo(3000, 3);
                 }
-                else if (this.power1 == true)
+                else if (this.power3 == true)
                 {
                     sessionStorage.setItem("powerup", 3);
                 }
