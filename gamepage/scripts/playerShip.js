@@ -7,8 +7,8 @@ class PlayerShip extends Phaser.GameObjects.Sprite
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.setScale(0.75);
-        this.minX = 300; // Define your minimum X value
-        this.maxX = 1200; // Define your maximum X value
+        this.minX = 300; // Define minimum X value
+        this.maxX = 1200; // Define maximum X value
     }
     moveLeft() 
     {   

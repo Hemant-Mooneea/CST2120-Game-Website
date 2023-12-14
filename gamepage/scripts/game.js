@@ -10,7 +10,9 @@ window.onload = function()
     // Get the height and width of the div
     const SCREEN_HEIGHT = divElement.clientHeight;
     const SCREEN_WIDTH = divElement.clientWidth;
+
     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+
     if (!isLoggedIn) 
     {
          // Create a message to prompt the user to log in
@@ -24,7 +26,7 @@ window.onload = function()
         loginPrompt.style.transform = 'translateY(-50%)'; 
         loginPrompt.style.width = '100%';
         divElement.appendChild(loginPrompt);
-        }
+    }
     else
     {
     new Phaser.Game({
@@ -35,5 +37,5 @@ window.onload = function()
         physics: { default: 'arcade' }, // The physics engine to use
         parent: 'game', // Create the game inside the <div id="game"> 
     });
-}
+    }
 }   

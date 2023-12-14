@@ -38,7 +38,7 @@ class MenuScene extends Phaser.Scene
             
         });
 
-        this.selection_rect = this.add.rectangle(768, 305, 200, 100);   
+        this.selection_rect = this.add.rectangle(767, 305, 200, 100);   
         this.selection_rect.setStrokeStyle(10, 0xffffff); // Border style
 
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
