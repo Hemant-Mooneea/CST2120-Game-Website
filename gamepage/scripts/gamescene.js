@@ -46,7 +46,7 @@ class GameScene extends Phaser.Scene
     create()
     {
         const storedDifficulty = sessionStorage.getItem('difficultyCounter');
-        const difficultyCounter = storedDifficulty ? parseInt(storedDifficulty) : 1; // Parse to integer (default to 1 if not found)
+        const difficultyCounter = parseInt(storedDifficulty);
         this.score_multiplier = difficultyCounter;     
         
         this.setupScene();
@@ -73,8 +73,6 @@ class GameScene extends Phaser.Scene
 
         this.canFire = true;
         this.player_alive = true;
-        this.score_multiplier = 1;
-
     }
     update()
     {   

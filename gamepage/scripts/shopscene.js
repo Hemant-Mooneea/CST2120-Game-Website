@@ -43,6 +43,7 @@ class ShopScene extends Phaser.Scene
 
         this.keyAJustPressed = false;
         this.keyDJustPressed = false;
+        this.keyEnterJustPressed = false;
 
         this.input.keyboard.on('keydown', (event) => 
         {
@@ -53,6 +54,10 @@ class ShopScene extends Phaser.Scene
             else if (event.code === 'KeyD') 
             {
                 this.keyDJustPressed = true;
+            }
+            else if (event.code === "Enter")
+            {
+                this.keyEnterJustPressed = true;
             }
             
         });
@@ -71,13 +76,13 @@ class ShopScene extends Phaser.Scene
     update()
     {
         this.powerDescription();
-        if (this.keyEnter.isDown)
-        {
-            this.scene.start("game");  
+        if (this.keyEnterJustPressed)
+        {   
+            this.purchaseHandling();  
         }
         if (this.keyBackspace.isDown)
         {
-            this.scene.start("default");
+            this.scene.start("default");    
         }
         if (this.keyDJustPressed) 
         {
@@ -99,6 +104,43 @@ class ShopScene extends Phaser.Scene
             }
         }
     }
+    purchaseHandling()
+    {   
+        this.keyEnterJustPressed = false;
+        switch(this.power_position)
+        {   
+            case 1:
+                if (this.money >= 5000 && this.power1 == false)
+                {
+                    this.updateUserInfo(5000, 1);
+                }
+                else if (this.power1 == true)
+                {
+                    sessionStorage.setItem("powerup", 1);
+                }
+                break;
+            case 2:
+                if (this.money >= 2500 && this.power2 == false)
+                {
+                    this.updateUserInfo(2500, 2);
+                }
+                else if (this.power1 == true)
+                {   
+                    sessionStorage.setItem("powerup", 2);
+                }
+                break;
+            case 3:
+                if (this.money >= 3000 && this.power3 == false)
+                {
+                    this.updateUserInfo(3000, 3);
+                }
+                else if (this.power1 == true)
+                {
+                    sessionStorage.setItem("powerup", 3);
+                }
+                break;
+        }
+    }
     powerDescription()
     {
         switch(this.power_position)
@@ -115,6 +157,38 @@ class ShopScene extends Phaser.Scene
                 this.cost_text.setText(3000);
                 this.desc_text.setText("Allows the ship to shoot faster for a certain amount of time");
                 break;
+        }
+    }
+    updateUserInfo(amount, powerup)
+    {
+        const storedUserData = localStorage.getItem('user_data');
+        // Check if any user data is stored
+        if (storedUserData) {
+            const parsedUserData = JSON.parse(storedUserData);
+            const currentUser = parsedUserData.find(user => user.username === sessionStorage.getItem('username'));
+    
+            if (currentUser) 
+            {
+                currentUser.money -= amount;
+                this.money = currentUser.money;
+                switch(powerup)
+                {
+                    case 1:
+                        currentUser.upgrade_1 = true;   
+                        sessionStorage.setItem("powerup", 1);
+                        break;
+                    case 2:
+                        currentUser.upgrade_2 = true;
+                        sessionStorage.setItem("powerup", 2);
+                        break;
+                    case 3:
+                        currentUser.upgrade_3 = true;
+                        sessionStorage.setItem("powerup", 3);
+                        break;
+                }
+                this.money_text.setText("MONEY:" + this.money);
+                localStorage.setItem('user_data', JSON.stringify(parsedUserData));
+            }
         }
     }
     obtainUserInfo()
