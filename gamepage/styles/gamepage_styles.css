@@ -51,7 +51,7 @@
 }
 
 /* Styles for various text elements */
-.controls-text, .temp-game-text, .movement-text, .shoot-text
+.controls-text, .temp-game-text
 {
     position: relative;
     color: white; /* White text color */
@@ -65,21 +65,6 @@
 {
     top: -30px;
 }
-
-/* Additional style for the movement text */
-.movement-text
-{
-    top: -200px;
-    right: 780px;
-}
-
-/* Additional style for the shoot text */
-.shoot-text
-{
-    top: -200px;
-    right: 95px;
-}
-
 /* Styles for the controls image container */
 .controls-image-container
 {

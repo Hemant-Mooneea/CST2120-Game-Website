@@ -22,7 +22,7 @@ class ShopScene extends Phaser.Scene
         this.power_up_equipped = this.sound.add("power_up_equipped", { loop: false, volume: 0.25 });
         this.selection_sfx = this.sound.add("menu_selection", { loop: false, volume: 0.5 });
         this.item_buy_sfx = this.sound.add("item_buy", { loop: false, volume: 0.5 });
-        this.cannot_buy_sfx = this.sound.add("cannot_buy", { loop: false, volume: 0.5 });
+        this.cannot_buy_sfx = this.sound.add("cannot_buy", { loop: false, volume: 1.0 });
  
         this.add.text(500, -25, "WELCOME TO THE SHOP", { font: '110px Game Over', fill: '#fff' });
         this.money_text = this.add.text(35, -5,"MONEY:" + this.money, { font: '80px Game Over', fill: '#fff' });
