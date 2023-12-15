@@ -45,6 +45,7 @@ class GameScene extends Phaser.Scene
         this.load.audio("game_ost", "assets/audio/game_ost.mp3");
         this.load.audio("game_over", "assets/audio/game_over.mp3");
         this.load.audio("power_up_ready", "assets/audio/power_up_ready.mp3");
+        this.load.audio("power_up_activate", "assets/audio/power_up_activate.mp3");
         this.load.audio("ship_shoot", "assets/audio/ship_shoot.mp3");
         
     }
@@ -56,6 +57,7 @@ class GameScene extends Phaser.Scene
         this.defeat_music = this.sound.add("game_over", { loop: false, volume: 0.5 });
         this.power_up_sound = this.sound.add("power_up_ready", { loop: false, volume: 0.1 });
         this.bullet_sound = this.sound.add("ship_shoot", { loop: false, volume: 0.1 });
+        this.power_up_activate =this.sound.add("power_up_activate", { loop: false, volume: 0.2});
 
         this.background_music.play();
 
@@ -172,6 +174,7 @@ class GameScene extends Phaser.Scene
         if(Phaser.Input.Keyboard.JustDown(this.keyK) && this.canPowerup && this.player_powerUp != 0)
         {   
             this.canPowerup = false;
+            this.power_up_activate.play();
             this.handlePowerups();
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyJ)) 
