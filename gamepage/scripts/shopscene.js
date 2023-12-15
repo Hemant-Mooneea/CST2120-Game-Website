@@ -10,10 +10,20 @@ class ShopScene extends Phaser.Scene
         this.load.image("gold_powerup","assets/graphics/gold.png" );
         this.load.image("cloak_powerup","assets/graphics/cloak.png" );
         this.load.image("shoot_powerup","assets/graphics/shoot.webp" );
+        this.load.audio("menu_selection", "assets/audio/menu_selection.mp3");
+        this.load.audio("item_buy", "assets/audio/item_buy.mp3");
+        this.load.audio("power_up_equipped", "assets/audio/power_up_equipped.mp3");
+        this.load.audio("cannot_buy", "assets/audio/cannot_buy.mp3");
     }
     create()
     {   
         this.obtainUserInfo();
+
+        this.power_up_equipped = this.sound.add("power_up_equipped", { loop: false, volume: 0.25 });
+        this.selection_sfx = this.sound.add("menu_selection", { loop: false, volume: 0.5 });
+        this.item_buy_sfx = this.sound.add("item_buy", { loop: false, volume: 0.5 });
+        this.cannot_buy_sfx = this.sound.add("cannot_buy", { loop: false, volume: 0.5 });
+ 
         this.add.text(500, -25, "WELCOME TO THE SHOP", { font: '110px Game Over', fill: '#fff' });
         this.money_text = this.add.text(35, -5,"MONEY:" + this.money, { font: '80px Game Over', fill: '#fff' });
         
@@ -35,8 +45,6 @@ class ShopScene extends Phaser.Scene
         this.shoot_powerup = this.add.image(1200, 350, "shoot_powerup");
         this.shoot_powerup.setScale(0.4);
        
-
-
         this.minX = 300; // Define minimum X value
         this.maxX = 1200; // Define maximum X value
         this.power_position = 2;
@@ -64,7 +72,8 @@ class ShopScene extends Phaser.Scene
             this.scene.start("default");    
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyD)) 
-        {
+        {   
+            this.selection_sfx.play();
             if(this.selection_rect.x + 440 <= this.maxX)
             {
                 this.selection_rect.x +=440;
@@ -73,7 +82,7 @@ class ShopScene extends Phaser.Scene
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyA))
         {
-
+            this.selection_sfx.play();
             if(this.selection_rect.x - 440 >= this.minX)
             {
                 this.selection_rect.x -=440;
@@ -89,34 +98,53 @@ class ShopScene extends Phaser.Scene
             case 1:
                 if (this.money >= 5000 && this.power1 == false)
                 {
+                    this.item_buy_sfx.play();
                     this.updateUserInfo(5000, 1);
                 }
                 else if (this.power1 == true)
                 {
+                    this.power_up_equipped.play();
                     sessionStorage.setItem("powerup", 1);
+                }
+                else
+                {
+                    this.cannot_buy_sfx.play();
                 }
                 break;
             case 2:
                 if (this.money >= 2500 && this.power2 == false)
                 {
+                    this.item_buy_sfx.play();
                     this.updateUserInfo(2500, 2);
                 }
                 else if (this.power2 == true)
                 {   
+                    this.power_up_equipped.play();
                     sessionStorage.setItem("powerup", 2);
+                }
+                else
+                {
+                    this.cannot_buy_sfx.play();
                 }
                 break;
             case 3:
                 if (this.money >= 3000 && this.power3 == false)
                 {
+                    this.item_buy_sfx.play();
                     this.updateUserInfo(3000, 3);
                 }
                 else if (this.power3 == true)
                 {
+                    this.power_up_equipped.play();
                     sessionStorage.setItem("powerup", 3);
+                }
+                else
+                {
+                    this.cannot_buy_sfx.play();
                 }
                 break;
         }
+        this.obtainUserInfo();
     }
     powerDescription()
     {
@@ -157,7 +185,7 @@ class ShopScene extends Phaser.Scene
                     case 2:
                         currentUser.upgrade_2 = true;
                         sessionStorage.setItem("powerup", 2);
-                        break;
+                        break;  
                     case 3:
                         currentUser.upgrade_3 = true;
                         sessionStorage.setItem("powerup", 3);

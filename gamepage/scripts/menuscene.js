@@ -7,6 +7,7 @@ class MenuScene extends Phaser.Scene
   
     preload() 
     { 
+        this.load.audio("menu_selection", "assets/audio/menu_selection.mp3");
         this.load.image("background_menu", "assets/graphics/space_background.avif");
     }   
     create()
@@ -16,6 +17,8 @@ class MenuScene extends Phaser.Scene
         this.background.setDepth(-1);
         this.background.displayWidth = this.sys.canvas.width;
         this.background.displayHeight = this.sys.canvas.height;
+
+        this.selection_sfx = this.sound.add("menu_selection", { loop: false, volume: 0.5 });
         
         this.options_text_style = { font: '150px Game Over', fill: '#fff' };
         this.play_text = this.add.text(690, 200, "PLAY", this.options_text_style);
@@ -48,6 +51,7 @@ class MenuScene extends Phaser.Scene
         
         if (Phaser.Input.Keyboard.JustDown(this.keyW)) 
         {
+            this.selection_sfx.play();
             if(this.optionSelector("W"))
             {   
                 this.selection_rect.y -=200;
@@ -55,6 +59,7 @@ class MenuScene extends Phaser.Scene
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyS))
         {
+            this.selection_sfx.play();
             if(this.optionSelector("S"))
             {
                 this.selection_rect.y +=200;
