@@ -21,11 +21,11 @@
 }
 
 /* Styles for the video container */
-.video-container
+.poster-container
 {
     position: absolute;
-    margin-top: 85px;
-    z-index: 1; /* Set the stacking order for elements */
+    margin-top: 250px;
+    z-index: 2; /* Set the stacking order for elements */
     width: 100%;
     text-align: center;
     top: 180px;
