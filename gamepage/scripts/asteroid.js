@@ -5,7 +5,6 @@ class Asteroid extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.setTexture(texture);
-        this.body.setImmovable(true);
     }
     spawn(x, y, speed)
     {

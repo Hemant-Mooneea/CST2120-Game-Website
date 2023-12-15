@@ -41,27 +41,6 @@ class ShopScene extends Phaser.Scene
         this.maxX = 1200; // Define maximum X value
         this.power_position = 2;
 
-        this.keyAJustPressed = false;
-        this.keyDJustPressed = false;
-        this.keyEnterJustPressed = false;
-
-        this.input.keyboard.on('keydown', (event) => 
-        {
-            if (event.code === 'KeyA') 
-            {
-                this.keyAJustPressed = true;
-            } 
-            else if (event.code === 'KeyD') 
-            {
-                this.keyDJustPressed = true;
-            }
-            else if (event.code === "Enter")
-            {
-                this.keyEnterJustPressed = true;
-            }
-            
-        });
-
         this.selection_rect = this.add.rectangle(760, 350, 175, 175);   
         this.selection_rect.setStrokeStyle(10, 0xffffff); // Border style
 
@@ -76,7 +55,7 @@ class ShopScene extends Phaser.Scene
     update()
     {
         this.powerDescription();
-        if (this.keyEnterJustPressed)
+        if (Phaser.Input.Keyboard.JustDown(this.keyEnter))
         {   
             this.purchaseHandling();  
         }
@@ -84,22 +63,20 @@ class ShopScene extends Phaser.Scene
         {
             this.scene.start("default");    
         }
-        if (this.keyDJustPressed) 
+        if (Phaser.Input.Keyboard.JustDown(this.keyD)) 
         {
             if(this.selection_rect.x + 440 <= this.maxX)
             {
                 this.selection_rect.x +=440;
-                this.keyDJustPressed = false; 
                 this.power_position += 1;
             }
         }
-        if (this.keyAJustPressed)
+        if (Phaser.Input.Keyboard.JustDown(this.keyA))
         {
 
             if(this.selection_rect.x - 440 >= this.minX)
             {
                 this.selection_rect.x -=440;
-                this.keyAJustPressed = false; 
                 this.power_position -= 1;
             }
         }

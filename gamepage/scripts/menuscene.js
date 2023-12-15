@@ -22,21 +22,6 @@ class MenuScene extends Phaser.Scene
         this.shop_text = this.add.text(690, 400, "SHOP", this.options_text_style);
 
         this.play_selected = true;
-        this.keyWJustPressed = false;
-        this.keySJustPressed = false;
-
-        this.input.keyboard.on('keydown', (event) => 
-        {
-            if (event.code === 'KeyW') 
-            {
-                this.keyWJustPressed = true;
-            } 
-            else if (event.code === 'KeyS') 
-            {
-                this.keySJustPressed = true;
-            }
-            
-        });
 
         this.selection_rect = this.add.rectangle(767, 305, 200, 100);   
         this.selection_rect.setStrokeStyle(10, 0xffffff); // Border style
@@ -61,20 +46,18 @@ class MenuScene extends Phaser.Scene
             }
         }
         
-        if (this.keyWJustPressed) 
+        if (Phaser.Input.Keyboard.JustDown(this.keyW)) 
         {
             if(this.optionSelector("W"))
             {   
                 this.selection_rect.y -=200;
-                this.keyWJustPressed = false; 
             }
         }
-        if (this.keySJustPressed)
+        if (Phaser.Input.Keyboard.JustDown(this.keyS))
         {
             if(this.optionSelector("S"))
             {
                 this.selection_rect.y +=200;
-                this.keySJustPressed = false; 
             }
         }
     }

@@ -41,12 +41,24 @@ class GameScene extends Phaser.Scene
         this.load.image("planet4_image","assets/graphics/planet4.png");
         this.load.image("planet5_image","assets/graphics/planet5.png");
         this.load.image("planet6_image","assets/graphics/planet6.png");
+
+        this.load.audio("game_ost", "assets/audio/game_ost.mp3");
+        this.load.audio("game_over", "assets/audio/game_over.mp3");
+        this.load.audio("power_up_ready", "assets/audio/power_up_ready.mp3");
+        this.load.audio("ship_shoot", "assets/audio/ship_shoot.mp3");
         
     }
     create()
     {
         const storedDifficulty = sessionStorage.getItem('difficultyCounter');
         const difficultyCounter = parseInt(storedDifficulty);
+        this.background_music = this.sound.add("game_ost", { loop: true, volume: 0.5 });
+        this.defeat_music = this.sound.add("game_over", { loop: false, volume: 0.5 });
+        this.power_up_sound = this.sound.add("power_up_ready", { loop: false, volume: 0.1 });
+        this.bullet_sound = this.sound.add("ship_shoot", { loop: false, volume: 0.1 });
+
+        this.background_music.play();
+
         this.score_multiplier = difficultyCounter;     
         
         this.setupScene();
@@ -138,27 +150,6 @@ class GameScene extends Phaser.Scene
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
         this.keyK = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
-        
-        this.keyAJustPressed = false;
-        this.keyDJustPressed = false;
-        this.keyKJustPressed = false;
-
-        this.input.keyboard.on('keydown', (event) => 
-        {
-            if (event.code === 'KeyA') 
-            {
-                this.keyAJustPressed = true;
-            } 
-            else if (event.code === 'KeyD') 
-            {
-                this.keyDJustPressed = true;
-            }
-            else if (event.code === 'KeyK') 
-            {
-                this.keyKJustPressed = true;
-            }
-            
-        });
     }
 
     timer()
@@ -170,21 +161,18 @@ class GameScene extends Phaser.Scene
     }
     handlePlayerMovement()
     {
-        if(this.keyAJustPressed)
+        if(Phaser.Input.Keyboard.JustDown(this.keyA))
         {   
             this.player.moveLeft();
-            this.keyAJustPressed = false;
         }
-        else if(this.keyDJustPressed)
+        if(Phaser.Input.Keyboard.JustDown(this.keyD))
         {
             this.player.moveRight();    
-            this.keyDJustPressed = false;
         }   
-        if(this.keyKJustPressed && this.canPowerup && this.player_powerUp != 0)
+        if(Phaser.Input.Keyboard.JustDown(this.keyK) && this.canPowerup && this.player_powerUp != 0)
         {   
             this.canPowerup = false;
             this.handlePowerups();
-            this.keyKJustPressed = false;
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyJ)) 
         {
@@ -222,6 +210,8 @@ class GameScene extends Phaser.Scene
     {   
         this.canPowerup = true;
         this.powerup_text.setText("POWER UP READY");
+        this.power_up_sound.play();
+
     }
     handlePowerOne()
     {   
@@ -273,7 +263,9 @@ class GameScene extends Phaser.Scene
     }
     fireBullet() 
     {
-        if (this.canFire) {
+        if (this.canFire) 
+        {
+            this.bullet_sound.play();
             const bullet = this.bullets.get(this.player.x, this.player.y - 50);
             if (bullet) {
                 bullet.fire(this.player.x, this.player.y);
@@ -437,7 +429,9 @@ class GameScene extends Phaser.Scene
     }
 
     gameOver(player)
-    {
+    {   
+        this.background_music.stop();
+        this.defeat_music.play();   
         this.player_alive = false;
         sessionStorage.setItem('playerScore', this.player_score);
         sessionStorage.setItem('gameTime', this.timer_text.text);
