@@ -75,6 +75,7 @@ class GameScene extends Phaser.Scene
 
         this.canFire = true;
         this.canPowerup = true;
+        this.player_immunity = false;
         this.player_alive = true;
     }
     update()
@@ -112,7 +113,7 @@ class GameScene extends Phaser.Scene
             delay: this.fireDelay,
             callback: this.enableFire,
             callbackScope: this,
-            loop: true
+            loop: false
         });
 
         this.planetTimer = this.time.addEvent
@@ -200,9 +201,11 @@ class GameScene extends Phaser.Scene
                 break;
             case 2:
                 this.powerUpDelay = 10000;
+                this.handlePowerTwo();
                 break;
             case 3:
-                this.powerUpDelay = 20000;
+                this.powerUpDelay = 40000;
+                this.handlePowerThree();
                 break;
         }
         this.powerup_text.setText("");
@@ -234,9 +237,37 @@ class GameScene extends Phaser.Scene
             loop: false
         });
     }
+    handlePowerTwo()
+    {
+        this.player_immunity = true;
+        this.player_immunity_delay = 5000;
+        this.powertwotimer = this.time.addEvent
+        ({
+            delay: this.player_immunity_delay,
+            callback: this.disablepowerups,
+            callbackScope:this,
+            loop: false
+        });
+
+    }
+    handlePowerThree()
+    {   
+        this.fireDelay = 0;
+        this.fast_fire_delay = 10000;
+        this.powerthreetimer = this.time.addEvent
+        ({
+            delay: this.fast_fire_delay,
+            callback: this.disablepowerups,
+            callbackScope:this,
+            loop: false
+        });
+
+    }
     disablepowerups()
     {   
         this.yellow_powerup = 0;
+        this.player_immunity = false;
+        this.fireDelay = 500;
     }
     fireBullet() 
     {
@@ -252,6 +283,13 @@ class GameScene extends Phaser.Scene
     enableFire()
     {
         this.canFire = true;
+        this.fireTimer = this.time.addEvent
+        ({
+            delay: this.fireDelay,
+            callback: this.enableFire,
+            callbackScope: this,
+            loop: false
+        });
     }
     spawnAsteroid() 
     {
@@ -259,7 +297,6 @@ class GameScene extends Phaser.Scene
         let normal_chance = Math.floor(Math.random() * this.asteroid_probability);
         let red_chance = Math.floor(Math.random() * (this.asteroid_probability + 600));
         let yellow_chance = Math.floor(Math.random() * (this.asteroid_probability + 750 - this.yellow_powerup));
-        console.log(this.yellow_powerup);
 
         let x = 0;
         let y = 0;
