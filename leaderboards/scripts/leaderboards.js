@@ -14,6 +14,7 @@ window.onload = function() {
         }
         const sortedUserData = bubbleSort(parsedUserData);
         localStorage.setItem('sorted_user_data', JSON.stringify(sortedUserData));
+        displayLeaderboard(sortedUserData);
     }
 }
 
@@ -32,6 +33,22 @@ function bubbleSort(arr)
             }
         }
     }
-    console.log(arr);
     return arr;
+}
+function displayLeaderboard(sortedUserData)
+{
+    const leaderboardTable = document.querySelector('.styled-table tbody');
+    leaderboardTable.innerHTML = ''; // Clear existing entries
+
+    for (let i = 0; i < Math.min(10, sortedUserData.length); i++) {
+        const user = sortedUserData[i];
+        const row = `
+            <tr>
+                <td>${user.username}</td>
+                <td>${user.date}</td>
+                <td>${user.best_score}</td>
+            </tr>
+        `;
+        leaderboardTable.insertAdjacentHTML('beforeend', row);
+    }
 }

@@ -197,7 +197,7 @@ function storeUserData(username, password, gender, dob) {
         gender: gender,
         date_of_birth: dob,
         best_score:0,
-        date:"null",
+        date:"00/00/00",
         money:0,
         upgrade_1:false,
         upgrade_2:false,
