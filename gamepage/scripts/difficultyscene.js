@@ -9,9 +9,11 @@ class DifficultyScene extends Phaser.Scene
     { 
         this.load.image("difficulty_image", "assets/graphics/difficulty_type.png")
         this.load.image("background_difficulty", "assets/graphics/asteroids_background.jpg");
+        this.load.audio("menu_selection", "assets/audio/menu_selection.mp3");
     }   
     create()
     {   
+        this.selection_sfx = this.sound.add("menu_selection", { loop: false, volume: 0.5 });
         this.difficulty_image = this.add.image(770, 350, "difficulty_image")
         this.difficulty_image.setScale(0.75);
         this.upper_black_rect = this.add.rectangle(800,0,1600,200,0x000000);
@@ -33,22 +35,6 @@ class DifficultyScene extends Phaser.Scene
         this.minX = 300;
         this.maxX = 1200;
 
-        this.keyAJustPressed = false;
-        this.keyDJustPressed = false;
-
-        this.input.keyboard.on('keydown', (event) => 
-        {
-            if (event.code === 'KeyA') 
-            {
-                this.keyAJustPressed = true;
-            } 
-            else if (event.code === 'KeyD') 
-            {
-                this.keyDJustPressed = true;
-            }
-            
-        });
-
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyBackspace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACKSPACE);
@@ -66,22 +52,22 @@ class DifficultyScene extends Phaser.Scene
         {
             this.scene.start("default");
         }
-        if (this.keyDJustPressed) 
+        if (Phaser.Input.Keyboard.JustDown(this.keyD)) 
         {
+            this.selection_sfx.play();
             if(this.selection_rect.x + 280 <= this.maxX)
             {
                 this.selection_rect.x +=280;
-                this.keyDJustPressed = false; 
                 this.difficulty_counter += 1;
             }
         }
-        if (this.keyAJustPressed)
+        if (Phaser.Input.Keyboard.JustDown(this.keyA))
         {
-
+            this.selection_sfx.play();
             if(this.selection_rect.x - 280 >= this.minX)
             {
                 this.selection_rect.x -=280;
-                this.keyAJustPressed = false; 
+
                 this.difficulty_counter -= 1;
             }
         }

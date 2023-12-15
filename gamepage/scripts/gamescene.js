@@ -192,11 +192,11 @@ class GameScene extends Phaser.Scene
                 this.handlePowerOne();
                 break;
             case 2:
-                this.powerUpDelay = 20000;
+                this.powerUpDelay = 15000;
                 this.handlePowerTwo();
                 break;
             case 3:
-                this.powerUpDelay = 40000;
+                this.powerUpDelay = 25000;
                 this.handlePowerThree();
                 break;
         }
