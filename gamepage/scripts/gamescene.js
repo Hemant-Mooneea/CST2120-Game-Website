@@ -52,6 +52,7 @@ class GameScene extends Phaser.Scene
         this.setupScene();
         this.setupTimers();
         this.setupControls();
+        this.player_powerUp = parseInt(sessionStorage.getItem("powerup"));
                 
         this.bullets = this.physics.add.group({ classType: Bullet, defaultKey: 'playerBulletImage'});
         this.asteroids = this.physics.add.group({ classType: Asteroid, defaultKey: 'asteroidImage'});
@@ -67,11 +68,13 @@ class GameScene extends Phaser.Scene
 
         this.asteroid_speed = 100;  
         this.asteroid_probability = 50;
+        this.yellow_powerup = 0;
 
         this.totalTime = 0;
         this.startTime = this.time.now; 
 
         this.canFire = true;
+        this.canPowerup = true;
         this.player_alive = true;
     }
     update()
@@ -90,6 +93,10 @@ class GameScene extends Phaser.Scene
         this.player_score = 0
         this.score_text = this.add.text(35, -20,"SCORE:" + this.player_score , this.score_text_style);
         this.timer_text = this.add.text(1385, -15, "00:00", this.score_text_style);
+        if (this.player_powerUp != 0)
+        {
+            this.powerup_text = this.add.text(600, -15, "POWER UP READY", this.score_text_style);
+        }
         this.background = this.add.image(760, 360,"background_image");
         this.background.setDepth(-1);
         this.player = new playerShip(this, 750, 650, "playerShipImage");
@@ -129,9 +136,12 @@ class GameScene extends Phaser.Scene
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
+        this.keyK = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
         
         this.keyAJustPressed = false;
         this.keyDJustPressed = false;
+        this.keyKJustPressed = false;
+
         this.input.keyboard.on('keydown', (event) => 
         {
             if (event.code === 'KeyA') 
@@ -141,6 +151,10 @@ class GameScene extends Phaser.Scene
             else if (event.code === 'KeyD') 
             {
                 this.keyDJustPressed = true;
+            }
+            else if (event.code === 'KeyK') 
+            {
+                this.keyKJustPressed = true;
             }
             
         });
@@ -164,11 +178,65 @@ class GameScene extends Phaser.Scene
         {
             this.player.moveRight();    
             this.keyDJustPressed = false;
+        }   
+        if(this.keyKJustPressed && this.canPowerup && this.player_powerUp != 0)
+        {
+            this.handlePowerups();
+            this.keyKJustPressed = false;
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyJ)) 
         {
             this.fireBullet();
         }
+    }
+    handlePowerups()
+    {
+
+        switch (this.player_powerUp)
+        {
+            case 1:
+                this.powerUpDelay = 45000;
+                this.handlePowerOne();
+                break;
+            case 2:
+                this.powerUpDelay = 10000;
+                break;
+            case 3:
+                this.powerUpDelay = 20000;
+                break;
+        }
+        this.powerup_text.setText("");
+        this.enablePowerUp = false;
+
+        this.powerUpTimer = this.time.addEvent
+        ({
+            delay: this.powerUpDelay,
+            callback: this.enablePowerUpCallback,
+            callbackScope: this,
+            loop: false
+        });
+    }   
+    enablePowerUpCallback()
+    {   
+        this.enablePowerUp = true;
+        this.powerup_text.setText("POWER UP READY");
+    }
+    handlePowerOne()
+    {   
+ 
+        this.yellow_powerup = 750;
+        this.yellow_delay = 7500;
+        this.poweronetimer = this.time.addEvent
+        ({
+            delay: this.yellow_delay,
+            callback: this.disablepowerups,
+            callbackScope:this,
+            loop: false
+        });
+    }
+    disablepowerups()
+    {   
+        this.yellow_powerup = 0;
     }
     fireBullet() 
     {
@@ -190,7 +258,8 @@ class GameScene extends Phaser.Scene
 
         let normal_chance = Math.floor(Math.random() * this.asteroid_probability);
         let red_chance = Math.floor(Math.random() * (this.asteroid_probability + 600));
-        let yellow_chance = Math.floor(Math.random() * (this.asteroid_probability + 750));
+        let yellow_chance = Math.floor(Math.random() * (this.asteroid_probability + 750 - this.yellow_powerup));
+        console.log(this.yellow_powerup);
 
         let x = 0;
         let y = 0;
