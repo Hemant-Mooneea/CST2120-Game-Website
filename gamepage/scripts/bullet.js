@@ -1,19 +1,23 @@
-class Bullet extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture) {
-        super(scene, x, y, texture);
-        this.scene = scene;
-        this.scene.add.existing(this);
-        this.scene.physics.add.existing(this);
-        this.setData("speed", 800); // Set the bullet's speed
-        this.setTexture(texture); // Set the texture for the bullet
+// Class representing a bullet in the game
+class Bullet extends Phaser.GameObjects.Sprite 
+{
+    constructor(scene, x, y, texture) 
+    {
+        super(scene, x, y, texture); // Calls the constructor of the parent class (Phaser.GameObjects.Sprite)
+        this.scene = scene; // Reference to the scene where the bullet exists
+        this.scene.add.existing(this); // Adds the bullet to the scene
+        this.scene.physics.add.existing(this); // Adds the bullet to the physics system of the scene
+        this.setData("speed", 800); // Set the bullet's speed using Phaser's data manager
+        this.setTexture(texture); // Sets the texture (image) of the bullet
     }
 
-    fire(x, y) {
-        this.setPosition(x , y - 50); // Set the initial position of the bullet
-        this.body.velocity.y = -this.getData('speed'); // Set the bullet's upward velocity
+    // Method to fire the bullet from a given position
+    fire(x, y) 
+    {
+        this.setPosition(x, y - 50); // Sets the initial position of the bullet slightly above the given position
+        this.body.velocity.y = -this.getData('speed'); // Sets the bullet's upward velocity based on its speed data
     }
-
-    // You can add additional functionalities for bullet movement or collision handling here
 }
 
+// Exporting the Bullet class to make it available for importing in other modules
 export default Bullet;

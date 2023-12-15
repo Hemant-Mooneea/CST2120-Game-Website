@@ -3,14 +3,17 @@ import Bullet from './bullet.js';
 import { Asteroid, RedAsteroid, YellowAsteroid } from './Asteroid.js';
 import Planets from './planets.js';
 
+// Define the GameScene class that extends Phaser.Scene
 class GameScene extends Phaser.Scene
 {
     constructor()
     {
-        super({key: "game"});
+        super({key: "game"}); // Set the scene key to "intro"
     }
+    // Preloads game assets
     preload()
     {
+        // Selects a random sprite for the ship(red, blue, yellow or green)
         let random_ship = Math.floor(Math.random() * 4) + 1;
         switch (random_ship)
         {
@@ -41,7 +44,7 @@ class GameScene extends Phaser.Scene
         this.load.image("planet4_image","assets/graphics/planet4.png");
         this.load.image("planet5_image","assets/graphics/planet5.png");
         this.load.image("planet6_image","assets/graphics/planet6.png");
-
+        // Loading game audio
         this.load.audio("game_ost", "assets/audio/game_ost.mp3");
         this.load.audio("game_over", "assets/audio/game_over.mp3");
         this.load.audio("power_up_ready", "assets/audio/power_up_ready.mp3");
@@ -50,9 +53,12 @@ class GameScene extends Phaser.Scene
         
     }
     create()
-    {
+    {   
+        //Obtaining Difficulty from session storage
         const storedDifficulty = sessionStorage.getItem('difficultyCounter');
         const difficultyCounter = parseInt(storedDifficulty);
+        
+        // Initialising Music
         this.background_music = this.sound.add("game_ost", { loop: true, volume: 0.5 });
         this.defeat_music = this.sound.add("game_over", { loop: false, volume: 0.5 });
         this.power_up_sound = this.sound.add("power_up_ready", { loop: false, volume: 0.1 });
@@ -61,6 +67,7 @@ class GameScene extends Phaser.Scene
 
         this.background_music.play();
 
+        // Setting up the score multiplier
         this.score_multiplier = difficultyCounter;     
         this.player_powerUp = parseInt(sessionStorage.getItem("powerup"));
                 
@@ -68,7 +75,7 @@ class GameScene extends Phaser.Scene
         this.setupTimers();
         this.setupControls();
 
-        
+        // Adding collisions to sprites
         this.bullets = this.physics.add.group({ classType: Bullet, defaultKey: 'playerBulletImage'});
         this.asteroids = this.physics.add.group({ classType: Asteroid, defaultKey: 'asteroidImage'});
         this.red_asteroids = this.physics.add.group({ classType: RedAsteroid, defaultKey: 'redasteroidImage'});
@@ -81,13 +88,16 @@ class GameScene extends Phaser.Scene
         this.physics.add.collider(this.bullets, this.yellow_asteroids, this.bulletyellowAsteroidCollision, null, this);
         this.physics.add.collider(this.player, this.yellow_asteroids, this.shipyellowAsteroidCollision, null, this);
 
+        // Initialising Asteroid properties
         this.asteroid_speed = 100;  
         this.asteroid_probability = 50;
         this.yellow_powerup = 0;
 
+        // Intialising Game Time
         this.totalTime = 0;
         this.startTime = this.time.now; 
 
+        // Setting up flags
         this.canFire = true;
         this.canPowerup = true;
         this.player_immunity = false;
@@ -95,7 +105,7 @@ class GameScene extends Phaser.Scene
     }
     update()
     {   
-
+        // If the player is player
         if (this.player_alive)
         {
             this.handlePlayerMovement();
@@ -103,6 +113,7 @@ class GameScene extends Phaser.Scene
         }
         this.spawnAsteroid();
     }
+    //Loads up essential parts of the game
     setupScene()
     {
         this.score_text_style = { font: '80px Game Over', fill: '#fff' };
@@ -118,6 +129,7 @@ class GameScene extends Phaser.Scene
         this.player = new playerShip(this, 750, 650, "playerShipImage");
         this.player.setDepth(1);
     }
+    // Initialises all the in game timers.
     setupTimers()
     {
         this.fireDelay = 500; // The delay in millisecond
@@ -147,6 +159,7 @@ class GameScene extends Phaser.Scene
             loop: true
         })
     }
+    // Initialises all the keyboard inputs
     setupControls()
     {
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -154,7 +167,7 @@ class GameScene extends Phaser.Scene
         this.keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
         this.keyK = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
     }
-
+    
     timer()
     {
         this.totalTime = Math.floor((this.time.now - this.startTime) / 1000); // Convert milliseconds to seconds
@@ -162,6 +175,7 @@ class GameScene extends Phaser.Scene
         const seconds = (this.totalTime % 60).toString().padStart(2, '0'); // Get seconds with leading zero
         this.timer_text.setText(minutes + ":" + seconds);
     }
+    // Method to handle player movement
     handlePlayerMovement()
     {
         if(Phaser.Input.Keyboard.JustDown(this.keyA))
@@ -183,13 +197,14 @@ class GameScene extends Phaser.Scene
             this.fireBullet();
         }
     }
+    // Method called when user presses the powerup button
     handlePowerups()
     {
 
         switch (this.player_powerUp)
         {
             case 1:
-                this.powerUpDelay = 45000;
+                this.powerUpDelay = 60000;
                 this.handlePowerOne();
                 break;
             case 2:
@@ -202,6 +217,7 @@ class GameScene extends Phaser.Scene
                 break;
         }
         this.powerup_text.setText("");
+        // A timer setup to a cooldown for the powerups
         this.powerUpTimer = this.time.addEvent
         ({
             delay: this.powerUpDelay,
@@ -210,6 +226,7 @@ class GameScene extends Phaser.Scene
             loop: false
         });
     }   
+    // Method to enable use of powerups
     enablePowerUpCallback()
     {   
         this.canPowerup = true;
@@ -217,6 +234,7 @@ class GameScene extends Phaser.Scene
         this.power_up_sound.play();
 
     }
+    // Method which handles the first powerup
     handlePowerOne()
     {   
  
@@ -230,6 +248,7 @@ class GameScene extends Phaser.Scene
             loop: false
         });
     }
+    // Method which handles the second powerup
     handlePowerTwo()
     {
         this.player_immunity = true;
@@ -244,6 +263,7 @@ class GameScene extends Phaser.Scene
         });
 
     }
+    // Method which handles the third powerup
     handlePowerThree()
     {   
         this.fireDelay = 0;
@@ -257,6 +277,7 @@ class GameScene extends Phaser.Scene
         });
 
     }
+    // Method to disable a powerup after its duration is over
     disablepowerups()
     {   
         this.yellow_powerup = 0;
@@ -265,6 +286,7 @@ class GameScene extends Phaser.Scene
         this.fireDelay = 500;
         
     }
+    // Method used to fire a bullet from the ship
     fireBullet() 
     {
         if (this.canFire) 
@@ -277,7 +299,7 @@ class GameScene extends Phaser.Scene
             }
         }
     }
-    
+    // Method allows the user to shoot and creates a delay between shots
     enableFire()
     {
         this.canFire = true;
@@ -289,6 +311,7 @@ class GameScene extends Phaser.Scene
             loop: false
         });
     }
+    // Method which spawns asteroids using random numbers
     spawnAsteroid() 
     {
 
@@ -298,7 +321,7 @@ class GameScene extends Phaser.Scene
 
         let x = 0;
         let y = 0;
-
+        // x and y are the coordinates at which the asteroids spawn
         if (normal_chance == 0)
         {
             x = this.selectLane();
@@ -328,6 +351,7 @@ class GameScene extends Phaser.Scene
             }
         }
     }
+    // Method to choose which lane asteroids spawn in
     selectLane()
     {
         let lane = Math.floor(Math.random() * 5) + 1;
@@ -345,10 +369,12 @@ class GameScene extends Phaser.Scene
                 return(1075);
         }
     }
+    // Method which spawns the background planets
     spawnPlanets() 
     {
-        let x = Math.floor(Math.random() * 1400) + 100; // Randomize the x-position
-        let y = -50; // Start the planet above the visible area
+        let x = Math.floor(Math.random() * 1400) + 100;
+        let y = -50; 
+        // x and y are the coordinates at which the planets spawn
         let scale = Math.floor(Math.random() * 3) + 1; // Randomize planet size
         let planet_type = Math.floor(Math.random() * 6) + 1;
         let planet_img = "";
@@ -378,14 +404,16 @@ class GameScene extends Phaser.Scene
         planet.spawn(x, y, scale);
 
     }
+    // Method to increase the game's difficulty by increasing the asteroids' speed
     increaseDifficulty()
-    {
+    {   
         this.asteroid_speed += 50;
         if (this.asteroid_speed % 50 == 0 && this.asteroid_probability > 8)
         {
             this.asteroid_probability -= 2;
         }
     }
+    // Methods to handle collisions between different sprites
     bulletAsteroidCollision(bullet, asteroid)
     {
         bullet.destroy(); 
@@ -431,7 +459,7 @@ class GameScene extends Phaser.Scene
         }
         yellow_asteroid.destroy();
     }
-
+    // Method called when a collision between an asteroid and the ship occurs
     gameOver(player)
     {   
         this.background_music.stop();
@@ -445,4 +473,5 @@ class GameScene extends Phaser.Scene
     }
 
 }
+// Export the GameScene class as the default export
 export default GameScene

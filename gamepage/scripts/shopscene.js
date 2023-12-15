@@ -1,11 +1,14 @@
+// Define the ShopScene class that extends Phaser.Scene
 class ShopScene extends Phaser.Scene
 {
     constructor()
     {
         super({key: "shop"});
     }
+    // Preload assets for the scene
     preload()
-    {   
+    {
+        // Load images and audio needed for the scene   
         this.load.image("background_shop", "assets/graphics/space_hangar.jpg");
         this.load.image("gold_powerup","assets/graphics/gold.png" );
         this.load.image("cloak_powerup","assets/graphics/cloak.png" );
@@ -15,8 +18,10 @@ class ShopScene extends Phaser.Scene
         this.load.audio("power_up_equipped", "assets/audio/power_up_equipped.mp3");
         this.load.audio("cannot_buy", "assets/audio/cannot_buy.mp3");
     }
+    // Create the scene
     create()
     {   
+        //Defines all the audio, images and sprites used for the scene
         this.obtainUserInfo();
 
         this.power_up_equipped = this.sound.add("power_up_equipped", { loop: false, volume: 0.25 });
@@ -60,9 +65,12 @@ class ShopScene extends Phaser.Scene
         this.background = this.add.image(770, 360,"background_shop");
         this.background.setDepth(-2);
     }
+    // Update function to handle changes in the scene
     update()
     {
-        this.powerDescription();
+        
+        this.powerDescription(); // Update power-up description
+        // Check for user input
         if (Phaser.Input.Keyboard.JustDown(this.keyEnter))
         {   
             this.purchaseHandling();  
@@ -71,6 +79,7 @@ class ShopScene extends Phaser.Scene
         {
             this.scene.start("default");    
         }
+         // Handle key presses to change power-up selection
         if (Phaser.Input.Keyboard.JustDown(this.keyD)) 
         {   
             this.selection_sfx.play();
@@ -90,12 +99,14 @@ class ShopScene extends Phaser.Scene
             }
         }
     }
+    // Method to handle power-up purchases
     purchaseHandling()
     {   
-        this.keyEnterJustPressed = false;
+        // Determine which power-up is selected
         switch(this.power_position)
         {   
             case 1:
+                // Handle purchase and equipping for power-up 1
                 if (this.money >= 5000 && this.power1 == false)
                 {
                     this.item_buy_sfx.play();
@@ -112,6 +123,7 @@ class ShopScene extends Phaser.Scene
                 }
                 break;
             case 2:
+                // Handle purchase and equipping for power-up 2
                 if (this.money >= 2500 && this.power2 == false)
                 {
                     this.item_buy_sfx.play();
@@ -128,6 +140,7 @@ class ShopScene extends Phaser.Scene
                 }
                 break;
             case 3:
+                // Handle purchase and equipping for power-up 3
                 if (this.money >= 3000 && this.power3 == false)
                 {
                     this.item_buy_sfx.play();
@@ -144,8 +157,10 @@ class ShopScene extends Phaser.Scene
                 }
                 break;
         }
+        // Update user information after purchase attempt
         this.obtainUserInfo();
     }
+    //Method which displays each power's description and their price
     powerDescription()
     {
         switch(this.power_position)
@@ -164,6 +179,7 @@ class ShopScene extends Phaser.Scene
                 break;
         }
     }
+     // Method to update user information after a purchase
     updateUserInfo(amount, powerup)
     {
         const storedUserData = localStorage.getItem('user_data');
@@ -196,6 +212,7 @@ class ShopScene extends Phaser.Scene
             }
         }
     }
+    // Method to obtain user information from storage
     obtainUserInfo()
     {
         const storedUserData = localStorage.getItem('user_data');
@@ -208,6 +225,7 @@ class ShopScene extends Phaser.Scene
     
             if (currentUser) 
             {
+                 // Retrieve user's money and power-up status
                 this.money = currentUser.money;
                 this.power1 = currentUser.upgrade_1;
                 this.power2 = currentUser.upgrade_2;
@@ -216,4 +234,5 @@ class ShopScene extends Phaser.Scene
         }
     }
 }
+// Export the ShopScene class as the default export
 export default ShopScene;
