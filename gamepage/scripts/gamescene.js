@@ -62,11 +62,12 @@ class GameScene extends Phaser.Scene
         this.background_music.play();
 
         this.score_multiplier = difficultyCounter;     
-        
+        this.player_powerUp = parseInt(sessionStorage.getItem("powerup"));
+                
         this.setupScene();
         this.setupTimers();
         this.setupControls();
-        this.player_powerUp = parseInt(sessionStorage.getItem("powerup"));
+
         
         this.bullets = this.physics.add.group({ classType: Bullet, defaultKey: 'playerBulletImage'});
         this.asteroids = this.physics.add.group({ classType: Asteroid, defaultKey: 'asteroidImage'});
