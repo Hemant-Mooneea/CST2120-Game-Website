@@ -53,7 +53,7 @@ class GameScene extends Phaser.Scene
         this.setupTimers();
         this.setupControls();
         this.player_powerUp = parseInt(sessionStorage.getItem("powerup"));
-                
+        
         this.bullets = this.physics.add.group({ classType: Bullet, defaultKey: 'playerBulletImage'});
         this.asteroids = this.physics.add.group({ classType: Asteroid, defaultKey: 'asteroidImage'});
         this.red_asteroids = this.physics.add.group({ classType: RedAsteroid, defaultKey: 'redasteroidImage'});
@@ -181,7 +181,8 @@ class GameScene extends Phaser.Scene
             this.keyDJustPressed = false;
         }   
         if(this.keyKJustPressed && this.canPowerup && this.player_powerUp != 0)
-        {
+        {   
+            this.canPowerup = false;
             this.handlePowerups();
             this.keyKJustPressed = false;
         }
@@ -200,7 +201,7 @@ class GameScene extends Phaser.Scene
                 this.handlePowerOne();
                 break;
             case 2:
-                this.powerUpDelay = 10000;
+                this.powerUpDelay = 20000;
                 this.handlePowerTwo();
                 break;
             case 3:
@@ -209,8 +210,6 @@ class GameScene extends Phaser.Scene
                 break;
         }
         this.powerup_text.setText("");
-        this.enablePowerUp = false;
-
         this.powerUpTimer = this.time.addEvent
         ({
             delay: this.powerUpDelay,
@@ -221,7 +220,7 @@ class GameScene extends Phaser.Scene
     }   
     enablePowerUpCallback()
     {   
-        this.enablePowerUp = true;
+        this.canPowerup = true;
         this.powerup_text.setText("POWER UP READY");
     }
     handlePowerOne()
@@ -240,6 +239,7 @@ class GameScene extends Phaser.Scene
     handlePowerTwo()
     {
         this.player_immunity = true;
+        this.player.alpha = 0.5;
         this.player_immunity_delay = 5000;
         this.powertwotimer = this.time.addEvent
         ({
@@ -267,7 +267,9 @@ class GameScene extends Phaser.Scene
     {   
         this.yellow_powerup = 0;
         this.player_immunity = false;
+        this.player.alpha = 1;
         this.fireDelay = 500;
+        
     }
     fireBullet() 
     {
@@ -345,7 +347,6 @@ class GameScene extends Phaser.Scene
                 return(915);
             case 5:
                 return(1075);
-
         }
     }
     spawnPlanets() 
@@ -399,7 +400,10 @@ class GameScene extends Phaser.Scene
     }
     shipAsteroidCollision(player, asteroid) 
     {   
-        this.gameOver(player);
+        if (!this.player_immunity)
+        {
+            this.gameOver(player);
+        }
         asteroid.destroy();
     }
 
@@ -409,7 +413,10 @@ class GameScene extends Phaser.Scene
     }
     shipredAsteroidCollision(player, red_asteroid)
     {
-        this.gameOver(player);
+        if (!this.player_immunity)
+        {
+            this.gameOver(player);
+        }
         red_asteroid.destroy();
     }
     bulletyellowAsteroidCollision(bullet, yellow_asteroid)
@@ -422,7 +429,10 @@ class GameScene extends Phaser.Scene
     }
     shipyellowAsteroidCollision(player, yellow_asteroid)
     {
-        this.gameOver(player);
+        if (!this.player_immunity)
+        {
+            this.gameOver(player);
+        }
         yellow_asteroid.destroy();
     }
 
