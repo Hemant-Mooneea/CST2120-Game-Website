@@ -21,7 +21,7 @@ The website allows users to create an account, login and play the game and obtai
 
 Galaxy Figthers is a space shooter game where the player navigates through space by shooting asteroids by using the A and D keys.
 
-Each time the player shoots an asteroid, using the J key their score increases.
+Each time the player shoots an asteroid, using the J key, their score increases.
 
 However colliding with an asteroid causes them to lose the game.
 
